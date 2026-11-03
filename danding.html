@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>丹鼎问道 · 吃丹修仙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>:root{
+  --ink:#e9e1cf; --lacquer:#f5efe2; --panel2:#ede4d0; --line:#cdbd9c; --line2:#b9a780;
+  --bronze:#86602c; --bronze2:#a77c3e; --paper:#1d2824; --dim:#66675a; --faint:#8d8b78;
+  --jade:#2c8565; --cinnabar:#b5432a; --violet:#6750b5; --azure:#2c6fae;
+  --shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 6px 18px rgba(80,60,20,.10);
+  --stage-bg:radial-gradient(120% 90% at 50% 38%, #fbf6ea 0%, #efe4cb 55%, #e2d4b4 100%);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#0c1312; --lacquer:#121d1b; --panel2:#172623; --line:#29403a; --line2:#3a5650;
+    --bronze:#c99e5e; --bronze2:#e3bd7c; --paper:#e7ddc7; --dim:#97a196; --faint:#6c7a72;
+    --jade:#71c3a2; --cinnabar:#e8694a; --violet:#a994ec; --azure:#7cb8ea;
+    --shadow:0 1px 0 rgba(255,255,255,.03) inset, 0 10px 30px rgba(0,0,0,.35);
+    --stage-bg:radial-gradient(120% 90% at 50% 40%, #1b2b28 0%, #101a18 55%, #0a100f 100%);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#0c1312; --lacquer:#121d1b; --panel2:#172623; --line:#29403a; --line2:#3a5650;
+  --bronze:#c99e5e; --bronze2:#e3bd7c; --paper:#e7ddc7; --dim:#97a196; --faint:#6c7a72;
+  --jade:#71c3a2; --cinnabar:#e8694a; --violet:#a994ec; --azure:#7cb8ea;
+  --shadow:0 1px 0 rgba(255,255,255,.03) inset, 0 10px 30px rgba(0,0,0,.35);
+  --stage-bg:radial-gradient(120% 90% at 50% 40%, #1b2b28 0%, #101a18 55%, #0a100f 100%);
+  color-scheme:dark;
+}
+:root{ box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); }
+html{ scroll-padding-top:env(safe-area-inset-top,0px); background:var(--ink); }
+*,*::before,*::after{ box-sizing:border-box; }
+body{
+  margin:0; background:var(--ink); color:var(--paper);
+  font-family:'Noto Serif SC','Source Han Serif SC','Songti SC','STSong','SimSun',serif;
+  font-size:15px; line-height:1.6; -webkit-tap-highlight-color:transparent;
+  font-variant-numeric:tabular-nums;
+}
+button{ font:inherit; color:inherit; }
+.brush{ font-family:'Ma Shan Zheng','STXingkai','STKaiti','KaiTi',cursive; font-weight:400; letter-spacing:.02em; }
+:focus-visible{ outline:2px solid var(--bronze2); outline-offset:2px; border-radius:6px; }
+
+.app{ max-width:1320px; margin:0 auto; padding:12px 14px 28px; }
+.top{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:4px 2px 12px; flex-wrap:wrap; }
+.brand{ margin:0; font-size:2.1rem; line-height:1; color:var(--bronze2); }
+.top-meta{ display:flex; gap:16px; color:var(--dim); font-size:.86rem; flex-wrap:wrap; }
+.top-meta b{ color:var(--paper); font-weight:600; }
+
+.grid{ display:grid; grid-template-columns:290px minmax(0,1fr) 380px; gap:14px; align-items:start; }
+.col{ background:var(--lacquer); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); min-width:0; }
+
+/* ---------- 道身 ---------- */
+.body{ padding:16px 16px 12px; display:flex; flex-direction:column; gap:14px; }
+.realm-name{ display:flex; align-items:baseline; gap:8px; line-height:1; }
+.realm-name .major{ font-size:2.9rem; color:var(--paper); }
+.realm-name .minor{ font-size:1.5rem; color:var(--bronze2); }
+.bar{ height:8px; border-radius:4px; background:var(--panel2); border:1px solid var(--line); overflow:hidden; margin-top:10px; }
+.bar i{ display:block; height:100%; width:0; border-radius:3px; transition:width .25s linear; }
+.bar.exp i{ background:linear-gradient(90deg, color-mix(in srgb,var(--cinnabar) 70%, transparent), var(--cinnabar)); }
+.bar.wu i{ background:linear-gradient(90deg, color-mix(in srgb,var(--violet) 70%, transparent), var(--violet)); }
+.bar-text{ display:flex; justify-content:space-between; gap:8px; font-size:.8rem; color:var(--dim); margin-top:4px; }
+.trib-btn{
+  margin-top:12px; width:100%; padding:10px 12px; border-radius:10px; cursor:pointer;
+  background:color-mix(in srgb,var(--cinnabar) 16%, var(--lacquer)); border:1px solid var(--cinnabar); color:var(--cinnabar); font-weight:700;
+  animation:tribPulse 1.6s ease-in-out infinite;
+}
+.trib-btn:disabled{ animation:none; opacity:.6; cursor:not-allowed; }
+@keyframes tribPulse{ 50%{ box-shadow:0 0 0 4px color-mix(in srgb,var(--cinnabar) 22%, transparent); } }
+.note{ font-size:.8rem; color:var(--dim); margin-top:6px; min-height:1.2em; }
+.stats{ margin:0; display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+.stats > div{ background:var(--lacquer); padding:8px 10px; }
+.stats dt{ font-size:.75rem; color:var(--dim); }
+.stats dd{ margin:0; font-size:1.05rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.stats .c-jade{ color:var(--jade); } .stats .c-azure{ color:var(--azure); } .stats .c-cin{ color:var(--cinnabar); }
+.gongfa h3{ margin:0; font-size:.95rem; font-weight:600; color:var(--violet); }
+.gongfa .sub{ font-size:.8rem; color:var(--dim); }
+.buffs{ display:flex; flex-direction:column; gap:6px; }
+.buff{ display:flex; justify-content:space-between; font-size:.82rem; padding:6px 10px; border-radius:8px; background:var(--panel2); border:1px solid var(--line2); }
+.buff b{ color:var(--bronze2); font-weight:600; }
+.log{ list-style:none; margin:0; padding:0; font-size:.8rem; color:var(--dim); display:flex; flex-direction:column; gap:3px; max-height:180px; overflow:hidden; }
+.log li{ display:flex; gap:8px; }
+.log time{ color:var(--faint); flex:none; }
+.log .em{ color:var(--paper); }
+
+/* ---------- 丹炉 ---------- */
+.mini{ display:none; }
+.furnace{ padding:12px; display:flex; flex-direction:column; gap:10px; }
+.lines{ display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+.line-tab{
+  position:relative; padding:8px 4px; border-radius:10px; border:1px solid var(--line); background:var(--panel2);
+  cursor:pointer; font-size:.9rem; display:flex; flex-direction:column; align-items:center; gap:1px; color:var(--dim);
+}
+.line-tab .dot{ width:8px; height:8px; border-radius:50%; background:var(--lc); }
+.line-tab small{ font-size:.7rem; color:var(--faint); }
+.line-tab[aria-selected="true"]{ border-color:var(--lc); color:var(--paper); background:color-mix(in srgb,var(--lc) 12%, var(--lacquer)); }
+.line-tab:disabled{ opacity:.45; cursor:not-allowed; }
+.stage{
+  position:relative; height:380px; border-radius:12px; overflow:hidden; background:var(--stage-bg); border:1px solid var(--line);
+  touch-action:manipulation; user-select:none; -webkit-user-select:none;
+}
+.stage canvas{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.ding{ position:absolute; left:50%; bottom:6px; width:300px; max-width:82%; transform:translateX(-50%); pointer-events:none; filter:drop-shadow(0 8px 14px rgba(0,0,0,.35)); }
+.pill-wrap{
+  position:absolute; left:50%; top:30px; width:170px; height:170px; margin-left:-85px; cursor:pointer;
+  display:grid; place-items:center; touch-action:none; will-change:transform;
+}
+.ring{ position:absolute; inset:0; width:100%; height:100%; transform:rotate(-90deg); }
+.ring circle{ fill:none; stroke-width:5; }
+.ring .ring-bg{ stroke:color-mix(in srgb,var(--paper) 10%, transparent); }
+.ring .ring-hp{ stroke:var(--lc); stroke-linecap:round; transition:stroke-dashoffset .08s linear; filter:drop-shadow(0 0 4px var(--lc)); }
+.pill{
+  --ps:118px; width:var(--ps); height:var(--ps); border-radius:50%; position:relative;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255,255,255,.75) 0 4%, rgba(255,255,255,.18) 9%, transparent 20%),
+    radial-gradient(circle at 44% 40%, var(--c1), var(--c2) 74%, rgba(0,0,0,.55) 100%);
+  box-shadow:0 0 calc(16px + var(--gl,1) * 16px) var(--glow), inset -10px -14px 24px rgba(0,0,0,.42), inset 6px 8px 16px rgba(255,255,255,.14);
+}
+.pill::before{
+  content:''; position:absolute; inset:9%; border-radius:50%; opacity:var(--vein,0);
+  background:repeating-conic-gradient(from 20deg, rgba(255,255,255,.0) 0 14deg, rgba(255,255,255,.28) 15deg 17deg, rgba(255,255,255,0) 18deg 30deg);
+  -webkit-mask:radial-gradient(circle, transparent 28%, #000 31% 64%, transparent 70%); mask:radial-gradient(circle, transparent 28%, #000 31% 64%, transparent 70%);
+  animation:spin 26s linear infinite;
+}
+.pill.g3::after{
+  content:''; position:absolute; inset:-14px; border-radius:50%; border:1px dashed color-mix(in srgb, var(--c1) 70%, transparent);
+  animation:spin 9s linear infinite reverse;
+}
+.pill.dao{ background:radial-gradient(circle at 34% 28%, rgba(255,255,255,.8) 0 4%, transparent 18%), conic-gradient(from 0deg, #f36, #fa3, #ee5, #5e8, #4bf, #95f, #f36); animation:spin 7s linear infinite; }
+.pill.trib{
+  background:radial-gradient(circle at 40% 35%, #8b7bd8, #2a1f4e 70%, #0b0716);
+  box-shadow:0 0 38px rgba(140,120,255,.65), inset -10px -14px 24px rgba(0,0,0,.5);
+  animation:tribFlash 2.2s steps(1) infinite;
+}
+@keyframes tribFlash{ 0%,100%{ filter:none; } 46%{ filter:brightness(2.2) saturate(.5); } 48%{ filter:none; } 52%{ filter:brightness(1.8); } 54%{ filter:none; } }
+.pill.locked{ filter:grayscale(.8) brightness(.6); }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.stage.cult .pill{ filter:saturate(.7) brightness(.85); }
+.floats{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.fl{ position:absolute; font-weight:700; font-size:.95rem; white-space:nowrap; text-shadow:0 1px 2px rgba(0,0,0,.6); animation:flUp .9s ease-out forwards; color:#ffd7a8; }
+.fl.gain{ font-size:1rem; animation-duration:1.3s; }
+@keyframes flUp{ from{ opacity:1; transform:translate(-50%,0) scale(1); } to{ opacity:0; transform:translate(-50%,-56px) scale(.85); } }
+.stage-tag{ position:absolute; left:12px; top:10px; font-size:.78rem; color:var(--dim); background:color-mix(in srgb,var(--lacquer) 70%, transparent); padding:2px 8px; border-radius:8px; border:1px solid var(--line); }
+.trib-timer{ position:absolute; right:12px; top:10px; font-size:.9rem; color:var(--cinnabar); font-weight:700; }
+.qiyu{
+  position:absolute; width:58px; height:58px; margin:-29px 0 0 -29px; border-radius:50%; cursor:pointer;
+  border:1px solid var(--bronze2); color:#2a1a05; font-size:1.5rem; line-height:1;
+  background:radial-gradient(circle at 40% 35%, #fff3c8, #e7b85a 60%, #a8742a);
+  box-shadow:0 0 22px rgba(240,200,110,.9); animation:bob 2.4s ease-in-out infinite;
+}
+.qiyu span{ font-family:'Ma Shan Zheng','STKaiti','KaiTi',cursive; }
+@keyframes bob{ 50%{ transform:translateY(-10px) rotate(6deg); } }
+
+.pill-info{ display:grid; grid-template-columns:44px 1fr 44px; align-items:center; gap:8px; }
+.nav{ height:44px; border-radius:10px; border:1px solid var(--line); background:var(--panel2); cursor:pointer; font-size:1.4rem; color:var(--bronze2); }
+.nav:hover{ border-color:var(--bronze); }
+.pill-title{ text-align:center; min-width:0; }
+.pill-name{ font-size:1.9rem; line-height:1.15; color:var(--paper); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pill-sub{ font-size:.82rem; color:var(--dim); }
+.pill-sub b{ color:var(--lc); font-weight:600; }
+.controls{ display:grid; grid-template-columns:1.3fr 1.3fr .8fr; gap:8px; }
+.btn{ padding:12px 10px; border-radius:11px; border:1px solid var(--line2); background:var(--panel2); cursor:pointer; font-weight:600; font-size:.95rem; }
+.btn:hover{ border-color:var(--bronze); }
+.btn[aria-pressed="true"]{ background:color-mix(in srgb,var(--bronze) 22%, var(--lacquer)); border-color:var(--bronze2); color:var(--paper); }
+.btn.cult[aria-pressed="true"]{ background:color-mix(in srgb,var(--jade) 22%, var(--lacquer)); border-color:var(--jade); }
+.btn small{ display:block; font-weight:400; font-size:.72rem; color:var(--dim); }
+.autos{ display:flex; flex-wrap:wrap; gap:6px; }
+.chip{ padding:5px 10px; border-radius:999px; border:1px solid var(--line); background:transparent; font-size:.8rem; cursor:pointer; color:var(--dim); }
+.chip[aria-pressed="true"]{ color:var(--paper); border-color:var(--jade); background:color-mix(in srgb,var(--jade) 15%, transparent); }
+.hint{ margin:0; font-size:.84rem; color:var(--dim); min-height:2.6em; padding:8px 10px; border-left:2px solid var(--bronze); background:var(--panel2); border-radius:0 8px 8px 0; }
+
+/* ---------- 卷册 ---------- */
+.scroll{ display:flex; flex-direction:column; max-height:calc(100vh - 90px); position:sticky; top:12px; }
+.tabs{ display:flex; border-bottom:1px solid var(--line); padding:0 6px; overflow-x:auto; flex:none; }
+.tab{ padding:11px 12px 9px; border:0; background:none; cursor:pointer; color:var(--dim); border-bottom:2px solid transparent; white-space:nowrap; font-size:.92rem; position:relative; }
+.tab[aria-selected="true"]{ color:var(--paper); border-bottom-color:var(--bronze2); }
+.tab .badge{ position:absolute; top:7px; right:3px; width:6px; height:6px; border-radius:50%; background:var(--cinnabar); }
+.pane{ padding:12px; overflow-y:auto; flex:1; min-height:0; }
+.pane[hidden]{ display:none; }
+.pane h4{ margin:4px 0 8px; font-size:.86rem; font-weight:600; color:var(--bronze2); }
+.pane p.lead{ margin:0 0 10px; font-size:.82rem; color:var(--dim); }
+.rows{ display:flex; flex-direction:column; gap:6px; }
+.row{ display:grid; grid-template-columns:22px 1fr auto; gap:10px; align-items:center; padding:8px 10px; border-radius:10px; border:1px solid var(--line); background:var(--panel2); cursor:pointer; text-align:left; width:100%; }
+.row:hover{ border-color:var(--line2); }
+.row.cur{ border-color:var(--lc); background:color-mix(in srgb,var(--lc) 10%, var(--panel2)); }
+.row.lock{ opacity:.5; cursor:default; }
+.row .sw{ width:18px; height:18px; border-radius:50%; background:radial-gradient(circle at 40% 35%, var(--c1), var(--c2)); box-shadow:0 0 6px var(--glow); }
+.row .nm{ font-size:.92rem; }
+.row .ds{ font-size:.74rem; color:var(--dim); }
+.row .rt{ text-align:right; font-size:.78rem; color:var(--dim); white-space:nowrap; }
+.row .rt b{ display:block; color:var(--paper); font-size:.86rem; font-weight:600; }
+.card{ padding:10px 12px; border-radius:10px; border:1px solid var(--line); background:var(--panel2); display:grid; grid-template-columns:1fr auto; gap:4px 10px; align-items:center; }
+.card .t{ font-weight:600; font-size:.93rem; }
+.card .t small{ color:var(--bronze2); font-weight:400; margin-left:6px; font-size:.78rem; }
+.card .d{ grid-column:1; font-size:.78rem; color:var(--dim); }
+.buy{ grid-row:1 / span 2; grid-column:2; min-width:92px; padding:8px 10px; border-radius:9px; border:1px solid var(--bronze); background:color-mix(in srgb,var(--bronze) 14%, transparent); cursor:pointer; font-size:.82rem; line-height:1.3; }
+.buy small{ display:block; color:var(--dim); font-size:.72rem; }
+.buy:disabled{ border-color:var(--line); background:transparent; opacity:.55; cursor:not-allowed; }
+.buy.max{ border-color:var(--line); opacity:.6; }
+.seg{ display:inline-flex; border:1px solid var(--line); border-radius:9px; overflow:hidden; margin-bottom:10px; }
+.seg button{ border:0; background:transparent; padding:5px 12px; cursor:pointer; font-size:.8rem; color:var(--dim); }
+.seg button[aria-pressed="true"]{ background:var(--panel2); color:var(--paper); }
+.big-btn{ width:100%; padding:12px; border-radius:11px; border:1px solid var(--cinnabar); background:color-mix(in srgb,var(--cinnabar) 14%, transparent); color:var(--paper); cursor:pointer; font-weight:700; font-size:1rem; margin:6px 0 14px; }
+.big-btn:disabled{ border-color:var(--line); background:transparent; color:var(--dim); cursor:not-allowed; }
+.kv{ display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:.84rem; margin-bottom:12px; }
+.kv dt{ color:var(--dim); } .kv dd{ margin:0; text-align:right; }
+.ms{ font-size:.8rem; color:var(--faint); display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px dashed var(--line); }
+.ms.on{ color:var(--paper); }
+.ms.on span:first-child::before{ content:'✓ '; color:var(--jade); }
+.ach-grid{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.ach{ padding:8px 10px; border-radius:9px; border:1px solid var(--line); font-size:.8rem; color:var(--faint); }
+.ach b{ display:block; font-size:.88rem; color:var(--dim); font-weight:600; }
+.ach.on{ border-color:var(--bronze); background:color-mix(in srgb,var(--bronze) 10%, transparent); color:var(--dim); }
+.ach.on b{ color:var(--bronze2); }
+.set{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); font-size:.88rem; }
+.set input[type=number]{ width:64px; padding:4px 6px; border-radius:7px; border:1px solid var(--line2); background:var(--panel2); color:var(--paper); font:inherit; }
+.set-actions{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.set-actions button{ padding:8px 12px; border-radius:9px; border:1px solid var(--line2); background:var(--panel2); cursor:pointer; font-size:.84rem; }
+.set-actions .danger{ border-color:var(--cinnabar); color:var(--cinnabar); }
+.keys{ font-size:.8rem; color:var(--dim); margin-top:14px; line-height:1.9; }
+kbd{ font-family:inherit; font-size:.76rem; padding:1px 6px; border:1px solid var(--line2); border-bottom-width:2px; border-radius:5px; background:var(--panel2); color:var(--paper); }
+
+/* ---------- 浮层 ---------- */
+.toasts{ position:fixed; top:calc(12px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); display:flex; flex-direction:column; gap:6px; align-items:center; z-index:50; pointer-events:none; width:min(92vw,420px); }
+.toast{ padding:9px 16px; border-radius:10px; background:var(--lacquer); border:1px solid var(--bronze); color:var(--paper); font-size:.88rem; box-shadow:0 8px 24px rgba(0,0,0,.3); animation:tIn .25s ease-out; text-align:center; }
+.toast.big{ font-size:1.05rem; border-color:var(--cinnabar); }
+.toast b{ color:var(--bronze2); }
+@keyframes tIn{ from{ opacity:0; transform:translateY(-8px); } }
+dialog{ border:1px solid var(--bronze); border-radius:14px; background:var(--lacquer); color:var(--paper); padding:18px 20px; width:min(92vw,460px); box-shadow:0 20px 60px rgba(0,0,0,.5); }
+dialog::backdrop{ background:rgba(0,0,0,.55); }
+dialog h3{ margin:0 0 6px; font-size:1.5rem; color:var(--bronze2); }
+dialog p{ margin:6px 0; font-size:.9rem; color:var(--dim); }
+dialog textarea{ width:100%; height:120px; border-radius:8px; border:1px solid var(--line2); background:var(--panel2); color:var(--paper); font:12px/1.4 ui-monospace,Menlo,Consolas,monospace; padding:8px; }
+dialog .acts{ display:flex; justify-content:flex-end; gap:8px; margin-top:12px; }
+dialog .acts button{ padding:8px 16px; border-radius:9px; border:1px solid var(--line2); background:var(--panel2); cursor:pointer; }
+dialog .acts .pri{ border-color:var(--bronze); background:color-mix(in srgb,var(--bronze) 18%, transparent); }
+
+@media (max-width:1180px){
+  .grid{ grid-template-columns:260px minmax(0,1fr); }
+  .scroll{ grid-column:1 / -1; position:static; max-height:none; }
+  .pane{ max-height:560px; }
+}
+@media (max-width:760px){
+  .app{ padding:8px 10px 24px; }
+  .grid{ grid-template-columns:1fr; gap:10px; }
+  .furnace{ order:1; } .body{ order:2; } .scroll{ order:3; }
+  .brand{ font-size:1.7rem; }
+  .stage{ height:330px; }
+  .pill-wrap{ top:22px; width:150px; height:150px; margin-left:-75px; }
+  .pill{ --ps:104px; }
+  .realm-name .major{ font-size:2.4rem; }
+  .log{ max-height:120px; }
+  .controls{ grid-template-columns:1fr 1fr .7fr; }
+  .mini{ display:grid; grid-template-columns:auto 1fr; align-items:baseline; gap:2px 10px; padding:2px 2px 0; }
+  .mini-realm{ font-size:1.5rem; line-height:1.1; }
+  .mini-stats{ text-align:right; font-size:.8rem; color:var(--dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .mini .bar{ grid-column:1 / -1; margin-top:4px; }
+  .mini .trib-btn{ grid-column:1 / -1; margin-top:6px; }
+  .body .realm .trib-btn{ display:none; }
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <h1 class="brand brush">丹鼎问道</h1>
+    <div class="top-meta">
+      <span id="tReb">初入仙途</span>
+      <span>道果 <b id="tDg">0</b></span>
+      <span>本世 <b id="tRun">0秒</b></span>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="col body" aria-label="道身">
+      <div class="realm">
+        <div class="realm-name"><span class="major brush" id="rMajor">炼气</span><span class="minor brush" id="rMinor">一层</span></div>
+        <div class="bar exp" role="progressbar" aria-label="修为进度"><i id="expFill"></i></div>
+        <div class="bar-text"><span id="expText">修为 0 / 0</span><span id="expEta"></span></div>
+        <button class="trib-btn" id="btnTrib" hidden>迎接天劫</button>
+        <div class="note" id="tribNote"></div>
+      </div>
+      <dl class="stats">
+        <div><dt>法力</dt><dd id="sP">0</dd></div>
+        <div><dt>每击伤害</dt><dd id="sHit" class="c-cin">0</dd></div>
+        <div><dt>修炼 / 秒</dt><dd id="sCult" class="c-jade">0</dd></div>
+        <div><dt>吐纳</dt><dd id="sE">0</dd></div>
+        <div><dt>每炉成丹</dt><dd id="sW">1</dd></div>
+        <div><dt>炼化速度</dt><dd id="sHR">0</dd></div>
+        <div><dt>灵石</dt><dd id="sStone" class="c-azure">0</dd></div>
+        <div><dt>成就加成</dt><dd id="sAch">+0%</dd></div>
+      </dl>
+      <div class="gongfa">
+        <h3 id="gfName">未入门</h3>
+        <div class="sub" id="gfSub">筑基后可炼悟道丹修习功法</div>
+        <div class="bar wu"><i id="wuFill"></i></div>
+        <div class="bar-text"><span id="wuText"></span><span id="wuNext"></span></div>
+      </div>
+      <div class="buffs" id="buffs"></div>
+      <ol class="log" id="log" aria-label="修行日志"></ol>
+    </section>
+
+    <section class="col furnace" aria-label="丹炉">
+      <div class="mini" id="mini">
+        <span class="mini-realm brush" id="mRealm">炼气一层</span>
+        <span class="mini-stats" id="mStats"></span>
+        <div class="bar exp"><i id="mExp"></i></div>
+        <button class="trib-btn" id="mTrib" hidden>迎接天劫</button>
+      </div>
+      <nav class="lines" id="lineTabs" role="tablist" aria-label="丹系"></nav>
+      <div class="stage" id="stage">
+        <canvas id="fx"></canvas>
+        <svg class="ding" viewBox="0 0 300 190" aria-hidden="true">
+          <defs>
+            <linearGradient id="bz" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0" stop-color="#3b2a17"/><stop offset=".22" stop-color="#8a6436"/><stop offset=".45" stop-color="#c79a5b"/>
+              <stop offset=".62" stop-color="#9b713d"/><stop offset="1" stop-color="#2e2112"/>
+            </linearGradient>
+            <linearGradient id="bzv" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".45"/>
+            </linearGradient>
+            <radialGradient id="pt" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#5fa391" stop-opacity=".75"/><stop offset="1" stop-color="#5fa391" stop-opacity="0"/>
+            </radialGradient>
+            <pattern id="lw" width="18" height="12" patternUnits="userSpaceOnUse">
+              <path d="M2 10 V2 H14 V8 H6 V5 H10" fill="none" stroke="#2a1d0f" stroke-width="1.4" opacity=".75"/>
+            </pattern>
+            <radialGradient id="mouth" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#ffcf7a" stop-opacity=".9"/><stop offset=".6" stop-color="#e2672e" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <ellipse id="dingGlow" cx="150" cy="44" rx="96" ry="14" fill="url(#mouth)" opacity=".7"/>
+          <path d="M62 40 h26 v-34 h-26 z M69 13 h12 v24 h-12z" fill-rule="evenodd" fill="url(#bz)"/>
+          <path d="M212 40 h26 v-34 h-26 z M219 13 h12 v24 h-12z" fill-rule="evenodd" fill="url(#bz)"/>
+          <rect x="42" y="38" width="216" height="13" rx="3" fill="url(#bz)"/>
+          <path d="M50 51 H250 C250 108 222 140 150 140 C78 140 50 108 50 51 Z" fill="url(#bz)"/>
+          <path d="M50 51 H250 C250 108 222 140 150 140 C78 140 50 108 50 51 Z" fill="url(#bzv)"/>
+          <rect x="58" y="60" width="184" height="18" fill="url(#lw)"/>
+          <path d="M58 60 H242 M58 78 H242" stroke="#2a1d0f" stroke-width="1.2" opacity=".6"/>
+          <ellipse cx="96" cy="104" rx="26" ry="14" fill="url(#pt)"/>
+          <ellipse cx="206" cy="96" rx="18" ry="10" fill="url(#pt)"/>
+          <ellipse cx="160" cy="124" rx="22" ry="8" fill="url(#pt)" opacity=".6"/>
+          <path d="M136 92 q14 -14 28 0 q-14 14 -28 0z" fill="none" stroke="#2a1d0f" stroke-width="1.6" opacity=".7"/>
+          <circle cx="150" cy="92" r="3" fill="#2a1d0f" opacity=".7"/>
+          <path d="M78 128 L64 186 H80 L98 136Z" fill="url(#bz)"/>
+          <path d="M222 128 L236 186 H220 L202 136Z" fill="url(#bz)"/>
+          <path d="M142 138 L140 186 H160 L158 138Z" fill="url(#bz)"/>
+        </svg>
+        <div class="pill-wrap" id="pillWrap" role="button" tabindex="0" aria-label="按住炼化丹药">
+          <svg class="ring" viewBox="0 0 170 170"><circle class="ring-bg" cx="85" cy="85" r="78"/><circle class="ring-hp" id="ringHp" cx="85" cy="85" r="78"/></svg>
+          <div class="pill" id="pill"></div>
+        </div>
+        <div class="floats" id="floats"></div>
+        <div class="stage-tag" id="stageTag">按住丹药炼化</div>
+        <div class="trib-timer" id="tribTimer" hidden></div>
+        <button class="qiyu" id="qiyu" hidden aria-label="奇遇"><span id="qiyuGlyph">缘</span></button>
+      </div>
+      <div class="pill-info">
+        <button class="nav" id="prev" aria-label="上一品">‹</button>
+        <div class="pill-title"><div class="pill-name brush" id="pName">下品聚气丹</div><div class="pill-sub" id="pSub"></div></div>
+        <button class="nav" id="next" aria-label="下一品">›</button>
+      </div>
+      <div class="controls">
+        <button class="btn cult" id="btnCult" aria-pressed="false">打坐修炼<small>吐纳化为法力</small></button>
+        <button class="btn" id="btnAuto" aria-pressed="false">自动炼化<small>持续炼化当前丹药</small></button>
+        <button class="btn" id="btnBest">择优<small>收益最高</small></button>
+      </div>
+      <div class="autos" id="autos"></div>
+      <p class="hint" id="hint"></p>
+    </section>
+
+    <section class="col scroll" aria-label="卷册">
+      <nav class="tabs" id="tabs" role="tablist">
+        <button class="tab" data-tab="pu" aria-selected="true">丹谱</button>
+        <button class="tab" data-tab="fu" aria-selected="false">洞府<span class="badge" id="bdgFu" hidden></span></button>
+        <button class="tab" data-tab="gf" aria-selected="false">功法</button>
+        <button class="tab" data-tab="lh" aria-selected="false">轮回<span class="badge" id="bdgLh" hidden></span></button>
+        <button class="tab" data-tab="cj" aria-selected="false">成就</button>
+        <button class="tab" data-tab="sz" aria-selected="false">设置</button>
+      </nav>
+      <div class="pane" id="pane-pu"></div>
+      <div class="pane" id="pane-fu" hidden></div>
+      <div class="pane" id="pane-gf" hidden></div>
+      <div class="pane" id="pane-lh" hidden></div>
+      <div class="pane" id="pane-cj" hidden></div>
+      <div class="pane" id="pane-sz" hidden></div>
+    </section>
+  </main>
+</div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<dialog id="modal"></dialog>
+<script>/* 丹鼎问道 · 引擎（纯逻辑，可在 Node 中仿真） */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.XJ = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+'use strict';
+
+/* ---------------- 可调参数 ---------------- */
+const CFG = {
+  hitBase: 6,          // 基础炼化速度（次/秒）
+  KD: 0.5,             // 每击伤害 = 法力 × 神识倍率 × KD
+  KC: 0.25,            // 每秒法力 = 吐纳 × 功法倍率 × KC
+  DS: 1.12, DM: 1.15,  // 境界神识倍率：每阶 ×DS，每大境界额外 ×DM
+  X0: 12, XS: 3.0,      // 升级所需修为（按阶指数增长）
+  HR: 4.5,             // 每阶丹药血量倍率
+  lines: {
+    eff: { hp0: 50,   v0: 1,   vr: 1.4 },
+    exp: { hp0: 150,  v0: 1,   vr: 1.8 },
+    wu:  { hp0: 1500, v0: 1,   vr: 1.6 },
+    ore: { hp0: 400,  v0: 1,   vr: 1.6 },
+  },
+  GR: 1.1, GN0: 4, GNR: 1.9,     // 功法
+  fabaoR: 1.08, dingStep: 1.25,
+  BK: 300, tribDur: 30,         // 天劫
+  evtMin: 100, evtMax: 200, evtLife: 14,
+};
+
+/* ---------------- 数字格式 ---------------- */
+const UNITS = ['', '万','亿','兆','京','垓','秭','穰','沟','涧','正','载','极','恒河沙','阿僧祇','那由他','不可思议','无量大数'];
+let SCI = false;
+function setSci(v) { SCI = !!v; }
+function fmt(v) {
+  if (v === undefined || v === null || isNaN(v)) return '0';
+  if (!isFinite(v)) return '∞';
+  if (v < 0) return '-' + fmt(-v);
+  if (v < 1e4) return v < 100 ? (Math.round(v * 100) / 100).toString() : (v < 1000 ? v.toFixed(1).replace(/\.0$/, '') : Math.floor(v).toString());
+  if (SCI) { const e = Math.floor(Math.log10(v)); return (v / Math.pow(10, e)).toFixed(2) + 'e' + e; }
+  const e4 = Math.floor(Math.log10(v) / 4);
+  if (e4 < UNITS.length) { const m = v / Math.pow(10, e4 * 4); return (m >= 1000 ? m.toFixed(0) : m >= 100 ? m.toFixed(1) : m.toFixed(2)) + UNITS[e4]; }
+  const e = Math.floor(Math.log10(v)); return (v / Math.pow(10, e)).toFixed(2) + 'e' + e;
+}
+function fmtInt(v) { return v < 1e4 ? Math.floor(v).toString() : fmt(v); }
+function fmtTime(s) {
+  if (!isFinite(s)) return '∞';
+  s = Math.max(0, s);
+  if (s < 60) return s.toFixed(s < 10 ? 1 : 0) + '秒';
+  if (s < 3600) return Math.floor(s / 60) + '分' + Math.floor(s % 60) + '秒';
+  if (s < 86400) return Math.floor(s / 3600) + '时' + Math.floor(s % 3600 / 60) + '分';
+  return Math.floor(s / 86400) + '天' + Math.floor(s % 86400 / 3600) + '时';
+}
+
+/* ---------------- 境界 ---------------- */
+const MAJORS = ['炼气','筑基','金丹','元婴','化神','炼虚','合体','大乘','渡劫','真仙','玄仙','金仙','太乙','大罗','准圣','圣人','道祖'];
+const MINOR4 = ['初期','中期','后期','圆满'];
+const CN = ['一','二','三','四','五','六','七','八','九','十'];
+const STAGES = [];
+MAJORS.forEach((m, mi) => {
+  const k = mi === 0 ? 9 : 4;
+  for (let i = 0; i < k; i++) {
+    STAGES.push({ major: mi, minor: i, last: i === k - 1,
+      name: mi === 0 ? m + CN[i] + '层' : m + MINOR4[i], mname: m,
+      sub: mi === 0 ? CN[i] + '层' : MINOR4[i] });
+  }
+});
+STAGES.forEach((st, i) => { st.lam = st.major === 0 ? i * 4 / 9 : st.major * 4 + st.minor; });
+const REBIRTH_STAGE = STAGES.findIndex(s => s.major === 4); // 化神初期
+const MAX_STAGE = STAGES.length - 1;
+function stageDmg(s) {
+  const st = STAGES[Math.min(s, MAX_STAGE)];
+  let d = Math.pow(CFG.DS, st.lam) * Math.pow(CFG.DM, st.major);
+  if (s > MAX_STAGE) d *= Math.pow(1.3, s - MAX_STAGE);
+  return d;
+}
+function stageNeed(s) {
+  const st = STAGES[Math.min(s, MAX_STAGE)];
+  let n = CFG.X0 * Math.pow(CFG.XS, st.lam) * (st.last ? 1.5 : 1);
+  if (s >= MAX_STAGE) n *= Math.pow(3, s - MAX_STAGE + 1);
+  return n;
+}
+function stageName(s) {
+  if (s <= MAX_STAGE) return STAGES[s].name;
+  return '道祖·' + (s - MAX_STAGE) + '重天';
+}
+const TRIB_NAMES = ['','筑基心魔劫','三九雷劫','六九天劫','九九化神劫','虚空劫','五行劫','大乘心火劫','九霄雷劫','飞升仙劫','玄冥寒劫','金身劫','太乙紫霄劫','大罗天劫','混元劫','圣人劫','大道劫'];
+
+/* ---------------- 丹药线 ---------------- */
+const GRADES = ['下品','中品','上品','极品'];
+const ORE_GRADES = ['黄级','玄级','地级','天级'];
+const LINES = {
+  eff: { id:'eff', name:'吐纳丹', res:'吐纳', start:0, hue:150,
+    fam:['聚气丹','培元丹','凝金丹','玄婴丹','养神丹','太虚丹','合元丹','大乘玄丹','雷劫丹','仙灵丹','玄冥丹','不朽金丹','太乙紫丹','大罗天丹','鸿蒙丹','造化丹','混元道丹'] },
+  exp: { id:'exp', name:'修为丹', res:'修为', start:0, hue:12,
+    fam:['洗髓丹','筑基丹','金元丹','婴元丹','通神丹','破虚丹','归一丹','天元丹','渡厄丹','飞升丹','玄黄丹','金身丹','太乙元丹','罗天丹','证道丹','成圣丹','合道丹'] },
+  wu:  { id:'wu', name:'悟道丹', res:'道悟', start:1, hue:268,
+    fam:[null,'清心丹','静虚丹','明心丹','慧光丹','通玄丹','观微丹','天机丹','道韵丹','劫悟丹','仙慧丹','玄妙丹','金蝉丹','太初丹','大衍丹','无极丹','混沌丹'] },
+  ore: { id:'ore', name:'灵矿', res:'灵石', start:0, hue:205,
+    fam:['碎灵矿','灵石矿','精金矿','玄铁矿','星辰矿','虚空晶矿','元磁矿','太阳金矿','雷晶矿','仙晶矿','玄黄矿','不朽仙金矿','紫霄晶矿','大罗晶矿','鸿蒙晶矿','造化晶矿','混沌晶矿'] },
+};
+const LINE_IDS = ['eff','exp','wu','ore'];
+const TIERS = MAJORS.length * 4; // 68
+function rebuild() {
+  LINE_IDS.forEach(id => {
+  const L = LINES[id], P = CFG.lines[id];
+  L.tiers = [];
+  for (let t = 0; t < TIERS; t++) {
+    const m = Math.floor(t / 4), g = t % 4;
+    if (m < L.start) { L.tiers.push(null); continue; }
+    const tt = t - L.start * 4; // 本线内部序号
+    L.tiers.push({ t, m, g,
+      name: id === 'ore' ? ORE_GRADES[g] + L.fam[m] : GRADES[g] + L.fam[m],
+      fam: L.fam[m], grade: id === 'ore' ? ORE_GRADES[g] : GRADES[g],
+      hp: P.hp0 * Math.pow(CFG.HR, t),
+      val: P.v0 * Math.pow(P.vr, tt) });
+  }
+});
+}
+rebuild();
+function tierOf(line, t) { return LINES[line].tiers[t]; }
+
+/* ---------------- 功法 ---------------- */
+const GONGFA_BOOKS = ['长春功','青元诀','玄元心经','紫府真经','太清道经','九转玄功','混元大道经','鸿蒙造化诀'];
+function gongfaName(L) {
+  if (L <= 0) return '未入门';
+  const b = Math.floor((L - 1) / 9), c = (L - 1) % 9;
+  if (b < GONGFA_BOOKS.length) return GONGFA_BOOKS[b] + '·第' + CN[c] + '重';
+  return '无上道经·第' + (L - GONGFA_BOOKS.length * 9) + '重';
+}
+function gongfaMul(L) { return Math.pow(CFG.GR, L) * Math.pow(1.3, Math.floor(L / 9)); }
+function gongfaNeed(L) { return CFG.GN0 * Math.pow(CFG.GNR, L); }
+
+/* ---------------- 洞府 ---------------- */
+const DING_NAMES = ['陶鼎','铜鼎','青铜鼎','赤金鼎','紫金鼎','玄黄鼎','九龙鼎','太虚鼎','乾坤鼎','混沌鼎'];
+const SWORD_NAMES = ['木剑','青钢剑','赤铜剑','寒铁剑','紫金剑','玄冰剑','赤霄剑','青冥剑','太阿剑','诛仙剑','轩辕剑','盘古斧'];
+const BUILDINGS = [
+  { id:'dinge', name:'丹鼎', c0:12, cr:1.5, max:Infinity,
+    desc: L => '每次炼化成丹 ' + fmtInt(dingMul(L)) + ' 颗', next: L => '→ ' + fmtInt(dingMul(L + 1)) + ' 颗',
+    title: L => DING_NAMES[Math.min(Math.floor(L / 10), DING_NAMES.length - 1)] },
+  { id:'dihuo', name:'地火', c0:30, cr:1.9, max:32,
+    desc: L => '炼化速度 +' + L + ' 次/秒', next: L => '→ +' + (L + 1), title: () => '地肺火脉' },
+  { id:'fabao', name:'本命法宝', c0:45, cr:1.75, max:Infinity,
+    desc: L => '炼化伤害 ×' + fmt(fabaoMul(L)), next: L => '→ ×' + fmt(fabaoMul(L + 1)),
+    title: L => SWORD_NAMES[Math.min(Math.floor(L / 8), SWORD_NAMES.length - 1)] },
+  { id:'julin', name:'聚灵阵', c0:80, cr:2.05, max:15,
+    desc: L => '炼化时仍以 ' + (L * 4) + '% 吐纳修炼', next: L => '→ ' + ((L + 1) * 4) + '%', title: () => '周天聚灵阵' },
+  { id:'cangjing', name:'藏经阁', c0:150, cr:1.6, max:Infinity,
+    desc: L => '道悟获取 ×' + fmt(1 + 0.3 * L), next: L => '→ ×' + fmt(1 + 0.3 * (L + 1)), title: () => '藏经阁', req: 1 },
+  { id:'lingmai', name:'灵脉', c0:60, cr:1.6, max:Infinity,
+    desc: L => '灵石获取 ×' + fmt(1 + 0.25 * L), next: L => '→ ×' + fmt(1 + 0.25 * (L + 1)), title: () => '地下灵脉' },
+  { id:'jingshi', name:'静室', c0:500, cr:2.6, max:10,
+    desc: L => '离线收益 ' + Math.round(offEff0(L) * 100) + '%，上限 ' + offCap0(L) + ' 小时', next: L => '→ ' + Math.round(offEff0(L + 1) * 100) + '%', title: () => '闭关静室' },
+];
+const BMAP = {}; BUILDINGS.forEach(b => BMAP[b.id] = b);
+function dingMul(L) { return (1 + L) * Math.pow(CFG.dingStep, Math.floor(L / 10)); }
+function fabaoMul(L) { return Math.pow(CFG.fabaoR, L); }
+function offEff0(L) { return 0.3 + 0.05 * L; }
+function offCap0(L) { return 4 + L; }
+function bCost(b, L) { return b.c0 * Math.pow(b.cr, L); }
+
+/* ---------------- 轮回天赋 ---------------- */
+const TALENTS = [
+  { id:'daoti', name:'先天道体', desc:'修炼获得法力 ×1.6', c0:1, cr:1.9, max:Infinity, f: L => Math.pow(1.6, L) },
+  { id:'shenshi', name:'神识通明', desc:'炼化伤害 ×1.6', c0:1, cr:1.9, max:Infinity, f: L => Math.pow(1.6, L) },
+  { id:'danxin', name:'丹心', desc:'成丹数 ×1.5', c0:2, cr:2.0, max:Infinity, f: L => Math.pow(1.5, L) },
+  { id:'suhui', name:'宿慧', desc:'修为获取 ×1.6', c0:2, cr:1.95, max:Infinity, f: L => Math.pow(1.6, L) },
+  { id:'wuxing', name:'悟性', desc:'道悟获取 ×1.7', c0:3, cr:2.0, max:Infinity, f: L => Math.pow(1.7, L) },
+  { id:'jubao', name:'聚宝', desc:'灵石获取 ×1.7', c0:3, cr:2.0, max:Infinity, f: L => Math.pow(1.7, L) },
+  { id:'huoxin', name:'地火心诀', desc:'炼化速度 +3 次/秒', c0:5, cr:2.4, max:10, f: L => 3 * L },
+  { id:'tianming', name:'天命', desc:'天劫强度 ×0.8', c0:4, cr:2.2, max:10, f: L => Math.pow(0.8, L) },
+  { id:'jiyuan', name:'福缘', desc:'奇遇更频繁、效果 +20%', c0:3, cr:2.1, max:10, f: L => L },
+  { id:'lunhui', name:'轮回印', desc:'轮回道果 +25%', c0:8, cr:2.5, max:Infinity, f: L => 1 + 0.25 * L },
+  { id:'sushi', name:'夙世修为', desc:'轮回后起始境界 +2 小境界', c0:6, cr:2.6, max:8, f: L => 2 * L },
+  { id:'biguan', name:'闭关秘法', desc:'离线收益 +10%、上限 +2 小时', c0:5, cr:2.3, max:5, f: L => L },
+  // 自动化
+  { id:'dantong', name:'丹童', desc:'解锁「自动择丹」：自动选择当前丹系中收益最高的丹药', c0:3, cr:1, max:1, auto:true, f: L => L },
+  { id:'lingtong', name:'灵童', desc:'解锁「自动周天」：按设定节律在修炼与炼化之间自动切换', c0:8, cr:1, max:1, auto:true, f: L => L },
+  { id:'kuilei', name:'傀儡', desc:'解锁「自动扩建」：灵石充足时自动升级最便宜的洞府', c0:15, cr:1, max:1, auto:true, f: L => L },
+  { id:'hufa', name:'护法', desc:'解锁「自动渡劫」：修为圆满时自动迎接天劫', c0:25, cr:1, max:1, auto:true, f: L => L },
+  { id:'zhoutian', name:'大周天', desc:'解锁「自动轮转」：自动周天时依次炼化四系丹药', c0:40, cr:1, max:1, auto:true, f: L => L },
+];
+const TMAP = {}; TALENTS.forEach(t => TMAP[t.id] = t);
+function tCost(t, L) { return Math.ceil(t.c0 * Math.pow(t.cr, L)); }
+
+const REB_MILESTONES = [
+  { n:1, text:'开启轮回天赋' },
+  { n:3, text:'法力获取 ×2', k:'cult', v:2 },
+  { n:5, text:'炼化伤害 ×2', k:'dmg', v:2 },
+  { n:8, text:'成丹数 ×2', k:'W', v:2 },
+  { n:12, text:'道果 ×1.5', k:'dg', v:1.5 },
+  { n:20, text:'全部获取 ×3', k:'all', v:3 },
+  { n:35, text:'道果 ×2', k:'dg', v:2 },
+  { n:60, text:'全部获取 ×10', k:'all', v:10 },
+  { n:100, text:'道果 ×3', k:'dg', v:3 },
+];
+
+/* ---------------- 成就 ---------------- */
+const ACH = [];
+MAJORS.forEach((m, mi) => { if (mi > 0) ACH.push({ id:'r' + mi, name:'初入' + m, desc:'突破至' + m + '境', test: S => S.stage >= STAGES.findIndex(s => s.major === mi) }); });
+[[100,'百炼'],[1e4,'万丹'],[1e6,'丹海'],[1e8,'丹山'],[1e12,'丹道无涯']].forEach(([n,nm],i) => ACH.push({ id:'k'+i, name:nm, desc:'累计炼化 '+fmt(n)+' 颗丹药', test: S => S.stats.kills >= n }));
+[[1,'初入轮回'],[3,'三世'],[10,'十世修行'],[30,'轮回不息'],[100,'百世道心']].forEach(([n,nm],i) => ACH.push({ id:'b'+i, name:nm, desc:'轮回 '+n+' 次', test: S => S.reb.n >= n }));
+[[1,'机缘'],[10,'福星'],[50,'天眷'],[200,'气运之子']].forEach(([n,nm],i) => ACH.push({ id:'e'+i, name:nm, desc:'获得 '+n+' 次奇遇', test: S => S.stats.evts >= n }));
+[[9,'功法小成'],[27,'功法大成'],[45,'功法圆满'],[72,'万法归一']].forEach(([n,nm],i) => ACH.push({ id:'g'+i, name:nm, desc:'功法达到 '+n+' 重', test: S => S.gf >= n }));
+[[10,'鼎器初成'],[30,'九鼎'],[60,'鼎镇乾坤']].forEach(([n,nm],i) => ACH.push({ id:'d'+i, name:nm, desc:'丹鼎升至 '+n+' 级', test: S => S.bld.dinge >= n }));
+ACH.push({ id:'fire', name:'地火燎原', desc:'地火升至满级', test: S => S.bld.dihuo >= 32 });
+[[200,'勤修'],[2000,'苦修'],[20000,'指尖生火']].forEach(([n,nm],i) => ACH.push({ id:'c'+i, name:nm, desc:'亲手点击炼化 '+n+' 次', test: S => S.stats.clicks >= n }));
+[[3600,'一个时辰'],[36000,'十个时辰'],[360000,'百个时辰']].forEach(([n,nm],i) => ACH.push({ id:'p'+i, name:nm, desc:'累计修行 '+(n/3600)+' 小时', test: S => S.stats.time >= n }));
+ACH.push({ id:'trib0', name:'劫后余生', desc:'首次渡过天劫', test: S => S.stats.tribs >= 1 });
+ACH.push({ id:'tribf', name:'雷火淬体', desc:'渡劫失败 3 次', test: S => S.stats.tribFail >= 3 });
+ACH.push({ id:'fast', name:'一日千里', desc:'单世 30 分钟内达到化神', test: S => S.stats.fastHua });
+ACH.push({ id:'all1', name:'百草尝遍', desc:'每种吐纳丹都至少炼化一颗（当前世）', test: S => S.counts.eff.every((c, i) => c > 0) });
+ACH.push({ id:'dz', name:'大道独行', desc:'证得道祖', test: S => S.stage >= MAX_STAGE });
+const ACH_BONUS = 0.03;
+
+/* ---------------- 奇遇 ---------------- */
+const EVENTS = [
+  { id:'tide', w:3, name:'灵气潮汐', desc:'60 秒内修炼法力 ×6' },
+  { id:'fire', w:3, name:'丹火暴涨', desc:'60 秒内炼化伤害 ×6' },
+  { id:'stone', w:2, name:'天降灵石', desc:'获得大量灵石' },
+  { id:'wu', w:2, name:'顿悟', desc:'获得大量道悟' },
+  { id:'elder', w:2, name:'前辈传功', desc:'法力 +25%' },
+  { id:'pill', w:2, name:'丹方残页', desc:'90 秒内成丹数 ×3' },
+];
+
+/* ---------------- 状态 ---------------- */
+function arr(n, v) { return new Array(n).fill(v); }
+function newRun(S) {
+  S.P = 10; S.E = 0; S.exp = 0; S.wu = 0; S.gf = 0; S.stones = 0;
+  S.stage = TL(S, 'sushi');
+  S.runMax = S.stage;
+  S.counts = { eff: arr(TIERS, 0), exp: arr(TIERS, 0), wu: arr(TIERS, 0), ore: arr(TIERS, 0) };
+  S.hp = { eff: arr(TIERS, -1), exp: arr(TIERS, -1), wu: arr(TIERS, -1), ore: arr(TIERS, -1) };
+  S.bld = {}; BUILDINGS.forEach(b => S.bld[b.id] = 0);
+  S.line = 'eff'; S.sel = { eff: 0, exp: 0, wu: 4, ore: 0 };
+  S.cult = false; S.auto = false;
+  S.trib = null; S.tribCD = 0;
+  S.buffs = [];
+  S.runTime = 0;
+  S.cyc = { phase: 'ref', t: 0, li: 0 };
+  return S;
+}
+function newState() {
+  const S = { v: 1,
+    reb: { n: 0, dg: 0, dgTotal: 0, tal: {} },
+    ach: {},
+    stats: { kills: 0, clicks: 0, time: 0, evts: 0, tribs: 0, tribFail: 0, maxStageEver: 0, fastHua: false, bestRun: 0 },
+    opts: { sci: false, autoPick: false, autoCycle: false, cycCult: 8, cycRef: 8, autoBuy: false, autoTrib: false, autoRotate: false, theme: 'auto', fx: true },
+    evt: null, evtTimer: 60,
+    log: [],
+    last: Date.now(),
+  };
+  TALENTS.forEach(t => S.reb.tal[t.id] = 0);
+  return newRun(S);
+}
+function TL(S, id) { return (S.reb && S.reb.tal && S.reb.tal[id]) || 0; }
+function TF(S, id) { return TMAP[id].f(TL(S, id)); }
+
+/* ---------------- 派生倍率 ---------------- */
+function achCount(S) { let n = 0; for (const k in S.ach) if (S.ach[k]) n++; return n; }
+function rebMul(S, key) {
+  let m = 1;
+  for (const ms of REB_MILESTONES) if (S.reb.n >= ms.n && ms.k) { if (ms.k === key || (ms.k === 'all' && key !== 'dg')) m *= ms.v; }
+  return m;
+}
+function buffMul(S, k) { let m = 1; for (const b of S.buffs) if (b.k === k) m *= b.v; return m; }
+function achMul(S) { return 1 + ACH_BONUS * achCount(S); }
+function mods(S) {
+  const am = achMul(S);
+  return {
+    dmgMul: stageDmg(S.stage) * fabaoMul(S.bld.fabao) * TF(S, 'shenshi') * am * buffMul(S, 'dmg') * rebMul(S, 'dmg'),
+    cultMul: gongfaMul(S.gf) * TF(S, 'daoti') * am * buffMul(S, 'cult') * rebMul(S, 'cult'),
+    W: dingMul(S.bld.dinge) * TF(S, 'danxin') * buffMul(S, 'W') * rebMul(S, 'W'),
+    hitRate: CFG.hitBase + S.bld.dihuo + TF(S, 'huoxin'),
+    expMul: TF(S, 'suhui') * rebMul(S, 'exp'),
+    wuMul: (1 + 0.3 * S.bld.cangjing) * TF(S, 'wuxing') * rebMul(S, 'wu'),
+    oreMul: (1 + 0.25 * S.bld.lingmai) * TF(S, 'jubao') * rebMul(S, 'ore'),
+    julin: 0.04 * S.bld.julin,
+  };
+}
+function hitDmg(S, M) { return S.P * M.dmgMul * CFG.KD; }
+function cultRate(S, M) { return S.E * M.cultMul * CFG.KC; }
+function lineMul(line, M) { return line === 'eff' ? 1 : line === 'exp' ? M.expMul : line === 'wu' ? M.wuMul : M.oreMul; }
+
+/* ---------------- 解锁 ---------------- */
+function curMajor(S) { return STAGES[Math.min(S.stage, MAX_STAGE)].major; }
+function unlocked(S, line, t) {
+  const p = tierOf(line, t); if (!p) return false;
+  return p.m <= curMajor(S);
+}
+function maxUnlocked(S, line) { return Math.min(TIERS - 1, curMajor(S) * 4 + 3); }
+function killsPerSec(S, M, line, t) {
+  const p = tierOf(line, t); const d = hitDmg(S, M);
+  if (d <= 0) return 0;
+  const hits = Math.max(1, Math.ceil(p.hp / d));
+  return M.hitRate / hits;
+}
+function gainPerSec(S, M, line, t) {
+  const p = tierOf(line, t);
+  return killsPerSec(S, M, line, t) * M.W * p.val * lineMul(line, M);
+}
+function bestTier(S, M, line) {
+  let best = -1, bv = -1;
+  const lo = LINES[line].start * 4, hi = maxUnlocked(S, line);
+  for (let t = lo; t <= hi; t++) { const g = gainPerSec(S, M, line, t); if (g > bv * 1.0000001) { bv = g; best = t; } }
+  return best;
+}
+
+/* ---------------- 进阶 ---------------- */
+function tribReady(S) { return S.stage < MAX_STAGE && STAGES[S.stage].last && S.exp >= stageNeed(S.stage); }
+function advance(S, ev) {
+  let guard = 0;
+  while (guard++ < 200) {
+    const need = stageNeed(S.stage);
+    if (S.exp < need) break;
+    if (S.stage < MAX_STAGE && STAGES[S.stage].last) { S.exp = Math.min(S.exp, need); break; }
+    S.exp -= need; S.stage++;
+    onStage(S, ev);
+  }
+}
+function onStage(S, ev) {
+  if (S.stage > S.runMax) S.runMax = S.stage;
+  if (S.stage > S.stats.maxStageEver) S.stats.maxStageEver = S.stage;
+  if (S.stage >= REBIRTH_STAGE && S.runTime < 1800) S.stats.fastHua = true;
+  ev && ev.push({ type: 'stage', s: S.stage });
+}
+function gongfaUp(S, ev) {
+  let g = 0;
+  while (S.wu >= gongfaNeed(S.gf) && g++ < 500) { S.wu -= gongfaNeed(S.gf); S.gf++; ev && ev.push({ type: 'gongfa', L: S.gf }); }
+}
+function tribHP(S, toMajor) { return LINES.eff.tiers[toMajor * 4].hp * CFG.BK * TF(S, 'tianming'); }
+function tribDur(S) { return CFG.tribDur; }
+function startTrib(S) {
+  if (!tribReady(S) || S.trib || S.tribCD > 0) return false;
+  const m = STAGES[S.stage].major + 1;
+  const hp = tribHP(S, m);
+  S.trib = { m, hp, max: hp, t: tribDur(S), dur: tribDur(S) };
+  S.cult = false;
+  return true;
+}
+
+/* ---------------- 炼化 ---------------- */
+function curHP(S, line, t) { const h = S.hp[line][t]; return h < 0 ? tierOf(line, t).hp : h; }
+function onKill(S, M, line, t, n, ev) {
+  const p = tierOf(line, t);
+  const c = M.W * n;
+  S.counts[line][t] += c;
+  S.stats.kills += c;
+  const g = c * p.val * lineMul(line, M);
+  if (line === 'eff') S.E += g;
+  else if (line === 'exp') { S.exp += g; advance(S, ev); }
+  else if (line === 'wu') { S.wu += g; gongfaUp(S, ev); }
+  else S.stones += g;
+  return g;
+}
+// 一次炼化（击打），返回 {dmg, kills, gain}
+function hit(S, M, ev, isClick) {
+  const d = hitDmg(S, M) * (isClick ? 1 : 1);
+  if (S.trib) {
+    S.trib.hp -= d;
+    ev && ev.push({ type: 'hit', d, trib: true });
+    if (S.trib.hp <= 0) finishTrib(S, true, ev);
+    return;
+  }
+  const line = S.line, t = S.sel[line];
+  if (!unlocked(S, line, t)) return;
+  let h = curHP(S, line, t) - d;
+  ev && ev.push({ type: 'hit', d });
+  if (h <= 0) {
+    S.hp[line][t] = -1;
+    const g = onKill(S, M, line, t, 1, ev);
+    ev && ev.push({ type: 'kill', line, t, g });
+  } else S.hp[line][t] = h;
+}
+function finishTrib(S, win, ev) {
+  const m = S.trib.m; S.trib = null;
+  if (win) {
+    S.exp -= stageNeed(S.stage); if (S.exp < 0) S.exp = 0;
+    S.stage++; S.stats.tribs++; onStage(S, ev);
+    ev && ev.push({ type: 'tribWin', m });
+    advance(S, ev);
+  } else {
+    S.exp *= 0.7; S.tribCD = 20; S.stats.tribFail++;
+    ev && ev.push({ type: 'tribFail', m });
+  }
+}
+
+/* ---------------- 主循环 ---------------- */
+function tick(S, dt, input, ev) {
+  input = input || {};
+  S.stats.time += dt; S.runTime += dt;
+  if (S.tribCD > 0) S.tribCD = Math.max(0, S.tribCD - dt);
+  // buffs
+  if (S.buffs.length) S.buffs = S.buffs.filter(b => (b.t -= dt) > 0);
+  // 自动化
+  autoLogic(S, dt);
+  const M = mods(S);
+  // 修炼
+  if (S.trib) {
+    S.trib.t -= dt;
+    S._acc = (S._acc || 0) + M.hitRate * dt;
+    let n = 0;
+    while (S._acc >= 1 && S.trib && n++ < 400) { S._acc -= 1; hit(S, M, ev); }
+    if (S.trib && S.trib.t <= 0) finishTrib(S, false, ev);
+  } else if (S.cult) {
+    const r = cultRate(S, M);
+    S.P += r * dt;
+    S._acc = 0;
+  } else {
+    if (M.julin > 0) S.P += cultRate(S, M) * M.julin * dt;
+    if (S.auto || input.hold) {
+      S._acc = (S._acc || 0) + M.hitRate * dt;
+      let n = 0;
+      // 大批量时解析处理，避免逐次循环
+      if (S._acc > 50) {
+        const k = Math.floor(S._acc); S._acc -= k;
+        bulkHits(S, M, k, ev);
+      } else while (S._acc >= 1 && n++ < 400) { S._acc -= 1; hit(S, M, ev); }
+    } else S._acc = 0;
+  }
+  // 奇遇
+  if (S.evt) { S.evt.t -= dt; if (S.evt.t <= 0) { S.evt = null; } }
+  else {
+    S.evtTimer -= dt;
+    if (S.evtTimer <= 0) spawnEvent(S);
+  }
+  if (input.clicks) for (let i = 0; i < input.clicks; i++) { if (!S.cult) { S.stats.clicks++; hit(S, M, ev, true); } }
+  checkAch(S, ev);
+}
+function bulkHits(S, M, k, ev) {
+  const line = S.line, t = S.sel[line];
+  if (!unlocked(S, line, t)) return;
+  const p = tierOf(line, t), d = hitDmg(S, M);
+  const per = Math.max(1, Math.ceil(p.hp / d));
+  let h = curHP(S, line, t);
+  // 先打掉当前这颗
+  const first = Math.ceil(h / d);
+  if (k < first) { S.hp[line][t] = h - k * d; return; }
+  k -= first; let kills = 1 + Math.floor(k / per); const rem = k % per;
+  S.hp[line][t] = rem > 0 ? p.hp - rem * d : -1;
+  const g = onKill(S, M, line, t, kills, ev);
+  ev && ev.push({ type: 'kill', line, t, g, n: kills });
+}
+function spawnEvent(S) {
+  const tot = EVENTS.reduce((a, e) => a + e.w, 0); let r = Math.random() * tot, e = EVENTS[0];
+  for (const x of EVENTS) { r -= x.w; if (r <= 0) { e = x; break; } }
+  S.evt = { id: e.id, t: CFG.evtLife, x: 0.15 + Math.random() * 0.7, y: 0.2 + Math.random() * 0.5 };
+  const j = TL(S, 'jiyuan');
+  S.evtTimer = (CFG.evtMin + Math.random() * (CFG.evtMax - CFG.evtMin)) / (1 + 0.15 * j);
+}
+function claimEvent(S, ev) {
+  if (!S.evt) return null;
+  const id = S.evt.id; S.evt = null; S.stats.evts++;
+  const amp = 1 + 0.2 * TL(S, 'jiyuan');
+  const M = mods(S);
+  let msg = '';
+  const E = EVENTS.find(x => x.id === id);
+  if (id === 'tide') { S.buffs.push({ k: 'cult', v: 6 * amp, t: 60, name: '灵气潮汐' }); msg = '修炼法力 ×' + fmt(6 * amp) + '，持续 60 秒'; }
+  else if (id === 'fire') { S.buffs.push({ k: 'dmg', v: 6 * amp, t: 60, name: '丹火暴涨' }); msg = '炼化伤害 ×' + fmt(6 * amp) + '，持续 60 秒'; }
+  else if (id === 'pill') { S.buffs.push({ k: 'W', v: 3 * amp, t: 90, name: '丹方残页' }); msg = '成丹数 ×' + fmt(3 * amp) + '，持续 90 秒'; }
+  else if (id === 'stone') {
+    const t = bestTier(S, M, 'ore'); const g = Math.max(gainPerSec(S, M, 'ore', t) * 90 * amp, S.stones * 0.2 + 50);
+    S.stones += g; msg = '获得灵石 ' + fmt(g);
+  } else if (id === 'wu') {
+    if (curMajor(S) < 1) { const g = S.P * 0.25 * amp; S.P += g; msg = '尚未通悟道，转化为法力 +' + fmt(g); }
+    else { const g = gongfaNeed(S.gf) * 0.6 * amp; S.wu += g; gongfaUp(S, ev); msg = '获得道悟 ' + fmt(g); }
+  } else if (id === 'elder') { const g = S.P * 0.25 * amp; S.P += g; msg = '法力 +' + fmt(g); }
+  return { name: E.name, msg };
+}
+
+/* ---------------- 自动化 ---------------- */
+function autoLogic(S, dt) {
+  const o = S.opts;
+  if (o.autoBuy && TL(S, 'kuilei')) autoBuy(S);
+  if (o.autoTrib && TL(S, 'hufa') && tribReady(S) && !S.trib && S.tribCD <= 0) {
+    const M = mods(S);
+    if (hitDmg(S, M) * M.hitRate * tribDur(S) >= tribHP(S, STAGES[S.stage].major + 1) * 1.05) startTrib(S);
+  }
+  if (S.trib) return;
+  if (o.autoCycle && TL(S, 'lingtong')) {
+    const c = S.cyc; c.t += dt;
+    if (c.phase === 'ref' && c.t >= o.cycRef) { c.phase = 'cult'; c.t = 0; S.cult = true; }
+    else if (c.phase === 'cult' && c.t >= o.cycCult) {
+      c.phase = 'ref'; c.t = 0; S.cult = false; S.auto = true;
+      if (o.autoRotate && TL(S, 'zhoutian')) {
+        const av = LINE_IDS.filter(l => curMajor(S) >= LINES[l].start);
+        c.li = (c.li + 1) % av.length; S.line = av[c.li];
+      }
+    }
+    if (c.phase === 'ref') { S.cult = false; S.auto = true; }
+  }
+  if (o.autoPick && TL(S, 'dantong')) {
+    S._pickT = (S._pickT || 0) - dt;
+    if (S._pickT <= 0) { S._pickT = 1; const M = mods(S); const b = bestTier(S, M, S.line); if (b >= 0) S.sel[S.line] = b; }
+  }
+}
+function canBuy(S, id) { const b = BMAP[id]; const L = S.bld[id]; if (L >= b.max) return false; if (b.req && curMajor(S) < b.req) return false; return S.stones >= bCost(b, L); }
+function buy(S, id) { if (!canBuy(S, id)) return false; const b = BMAP[id]; S.stones -= bCost(b, S.bld[id]); S.bld[id]++; return true; }
+function autoBuy(S) {
+  let g = 0;
+  while (g++ < 50) {
+    let best = null, bc = Infinity;
+    for (const b of BUILDINGS) { const L = S.bld[b.id]; if (L >= b.max || (b.req && curMajor(S) < b.req)) continue; const c = bCost(b, L); if (c < bc) { bc = c; best = b; } }
+    if (!best || S.stones < bc) break;
+    buy(S, best.id);
+  }
+}
+
+/* ---------------- 轮回 ---------------- */
+function dgGain(S) {
+  if (S.runMax < REBIRTH_STAGE) return 0;
+  let g = 4 * Math.pow(1.24, S.runMax - REBIRTH_STAGE) * TF(S, 'lunhui') * rebMul(S, 'dg');
+  return Math.floor(g);
+}
+function canRebirth(S) { return S.runMax >= REBIRTH_STAGE && !S.trib; }
+function rebirth(S) {
+  if (!canRebirth(S)) return 0;
+  const g = dgGain(S);
+  S.reb.n++; S.reb.dg += g; S.reb.dgTotal += g;
+  if (S.stats.bestRun === 0 || S.runMax > S.stats.bestRun) S.stats.bestRun = S.runMax;
+  newRun(S);
+  return g;
+}
+function canTal(S, id) { const t = TMAP[id]; const L = TL(S, id); return S.reb.n >= 1 && L < t.max && S.reb.dg >= tCost(t, L); }
+function buyTal(S, id) { if (!canTal(S, id)) return false; const t = TMAP[id]; S.reb.dg -= tCost(t, TL(S, id)); S.reb.tal[id]++; if (id === 'sushi' && S.stage < TF(S, 'sushi') && S.runTime < 1) S.stage = TF(S, 'sushi'); return true; }
+
+/* ---------------- 成就 ---------------- */
+function checkAch(S, ev) {
+  S._achT = (S._achT || 0) + 1; if (S._achT % 10) return;
+  for (const a of ACH) if (!S.ach[a.id] && a.test(S)) { S.ach[a.id] = 1; ev && ev.push({ type: 'ach', a }); }
+}
+
+/* ---------------- 离线 ---------------- */
+function offlineCaps(S) {
+  const L = S.bld.jingshi, b = TL(S, 'biguan');
+  return { eff: Math.min(1, offEff0(L) + 0.1 * b), cap: (offCap0(L) + 2 * b) * 3600 };
+}
+function offline(S, sec) {
+  const C = offlineCaps(S);
+  const used = Math.min(sec, C.cap), eq = used * C.eff;
+  const before = { P: S.P, E: S.E, exp: S.exp, wu: S.wu, stones: S.stones, stage: S.stage, gf: S.gf };
+  // 离线时不触发奇遇与渡劫
+  S.buffs = []; if (S.trib) { S.trib = null; }
+  // 分段解析模拟，保持结果与在线一致
+  const steps = Math.min(400, Math.max(1, Math.ceil(eq / 30)));
+  const dt = eq / steps;
+  for (let i = 0; i < steps; i++) {
+    autoLogicOffline(S);
+    const M = mods(S);
+    if (S.cult) S.P += cultRate(S, M) * dt;
+    else {
+      if (M.julin > 0) S.P += cultRate(S, M) * M.julin * dt;
+      if (S.auto) {
+        const line = S.line, t = S.sel[line];
+        if (unlocked(S, line, t)) onKill(S, M, line, t, killsPerSec(S, M, line, t) * dt, null);
+      }
+    }
+    if (S.opts.autoBuy && TL(S, 'kuilei')) autoBuy(S);
+  }
+  S.stats.time += used;
+  return { sec, used, eff: C.eff, before, after: { P: S.P, E: S.E, exp: S.exp, wu: S.wu, stones: S.stones, stage: S.stage, gf: S.gf } };
+}
+function autoLogicOffline(S) {
+  // 离线时自动周天按比例折算为：一半修炼一半炼化
+  const o = S.opts;
+  if (o.autoCycle && TL(S, 'lingtong')) {
+    S.cult = !S.cult; if (!S.cult) S.auto = true;
+    if (!S.cult && o.autoRotate && TL(S, 'zhoutian')) { const av = LINE_IDS.filter(l => curMajor(S) >= LINES[l].start); S.cyc.li = (S.cyc.li + 1) % av.length; S.line = av[S.cyc.li]; }
+  }
+  if (o.autoPick && TL(S, 'dantong')) { const b = bestTier(S, mods(S), S.line); if (b >= 0) S.sel[S.line] = b; }
+}
+
+/* ---------------- 存档 ---------------- */
+function serialize(S) {
+  const o = Object.assign({}, S); delete o._acc; delete o._achT; delete o._pickT;
+  return JSON.stringify(o);
+}
+function deserialize(str) {
+  const d = JSON.parse(str);
+  if (!d || d.v !== 1) throw new Error('存档版本不符');
+  const S = newState();
+  // 深合并
+  for (const k of Object.keys(d)) {
+    if (d[k] && typeof d[k] === 'object' && !Array.isArray(d[k]) && S[k] && typeof S[k] === 'object' && !Array.isArray(S[k])) {
+      for (const kk of Object.keys(d[k])) S[k][kk] = d[k][kk];
+    } else S[k] = d[k];
+  }
+  TALENTS.forEach(t => { if (S.reb.tal[t.id] === undefined) S.reb.tal[t.id] = 0; });
+  BUILDINGS.forEach(b => { if (S.bld[b.id] === undefined) S.bld[b.id] = 0; });
+  LINE_IDS.forEach(l => { if (!S.counts[l] || S.counts[l].length !== TIERS) S.counts[l] = arr(TIERS, 0); if (!S.hp[l] || S.hp[l].length !== TIERS) S.hp[l] = arr(TIERS, -1); });
+  // 重算吐纳，防止存档被改
+  S.E = 0; LINES.eff.tiers.forEach((p, i) => { if (p) S.E += S.counts.eff[i] * p.val; });
+  return S;
+}
+function recalcE(S) { S.E = 0; LINES.eff.tiers.forEach((p, i) => { if (p) S.E += S.counts.eff[i] * p.val; }); }
+
+return { CFG, MAJORS, STAGES, MAX_STAGE, REBIRTH_STAGE, TIERS, LINES, LINE_IDS, GRADES, BUILDINGS, BMAP, TALENTS, TMAP, REB_MILESTONES, ACH, ACH_BONUS, EVENTS, TRIB_NAMES,
+  stageDmg, stageNeed, stageName, gongfaName, gongfaMul, gongfaNeed, dingMul, fabaoMul, bCost, tCost,
+  fmt, fmtInt, fmtTime, setSci, newState, newRun, mods, hitDmg, cultRate, lineMul, curMajor, unlocked, maxUnlocked, killsPerSec, gainPerSec, bestTier,
+  tribReady, tribHP, tribDur, startTrib, curHP, hit, tick, claimEvent, canBuy, buy, autoBuy, dgGain, canRebirth, rebirth, canTal, buyTal, TL, TF, achCount, achMul, rebMul,
+  offline, offlineCaps, serialize, deserialize, recalcE, tierOf, advance, rebuild };
+});
+</script>
+<script>(function () {
+'use strict';
+const X = window.XJ;
+const $ = id => document.getElementById(id);
+const fmt = v => X.fmt(v), fmtT = s => X.fmtTime(s);
+const SAVE_KEY = 'danding_wendao_v1';
+const LC = { eff: 'var(--jade)', exp: 'var(--cinnabar)', wu: 'var(--violet)', ore: 'var(--azure)' };
+const LDESC = {
+  eff: '炼化可永久增加吐纳。打坐时，吐纳转化为法力。',
+  exp: '炼化获得修为，修为圆满即可突破境界，境界提升神识伤害并解锁新丹。',
+  wu: '炼化获得道悟，道悟积累使功法精进，功法提升修炼速度。',
+  ore: '开采获得灵石，用于扩建洞府：丹鼎、地火、法宝、聚灵阵等。',
+};
+let S;
+let cvars = {};
+
+/* ---------------- 存档 ---------------- */
+function load() {
+  try { const raw = localStorage.getItem(SAVE_KEY); if (raw) return X.deserialize(raw); } catch (e) { console.warn('读档失败', e); }
+  return null;
+}
+function save() { try { S.last = Date.now(); localStorage.setItem(SAVE_KEY, X.serialize(S)); } catch (e) { /* 存储不可用时静默 */ } }
+
+/* ---------------- 日志与提示 ---------------- */
+function log(text, em) {
+  const d = new Date(); const tt = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  S.log.unshift({ tt, text, em: !!em }); if (S.log.length > 40) S.log.length = 40;
+  renderLog();
+}
+function renderLog() {
+  const ol = $('log'); ol.innerHTML = '';
+  for (const e of S.log.slice(0, 9)) {
+    const li = document.createElement('li');
+    li.innerHTML = `<time>${e.tt}</time><span class="${e.em ? 'em' : ''}"></span>`;
+    li.lastChild.textContent = e.text; ol.appendChild(li);
+  }
+}
+function toast(html, big) {
+  const box = $('toasts');
+  while (box.children.length >= 4) box.firstChild.remove();
+  const d = document.createElement('div'); d.className = 'toast' + (big ? ' big' : ''); d.innerHTML = html;
+  box.appendChild(d); setTimeout(() => d.remove(), big ? 3600 : 2400);
+}
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+/* ---------------- 颜色 ---------------- */
+function pillColors(line, t) {
+  const p = X.tierOf(line, t);
+  if (!p) return { c1: '#888', c2: '#333', glow: 'rgba(0,0,0,0)' };
+  const base = { eff: 152, exp: 14, wu: 266, ore: 206 }[line];
+  const hue = (base + ((p.m * 29) % 70) - 35 + 360) % 360;
+  const sat = [42, 55, 68, 82][p.g], li = [44, 50, 56, 60][p.g];
+  return { c1: `hsl(${hue} ${sat}% ${li + 20}%)`, c2: `hsl(${hue} ${sat - 8}% ${li - 24}%)`, glow: `hsl(${hue} ${sat + 8}% ${li}% / ${0.3 + p.g * 0.17})`, hue };
+}
+function readVars() {
+  const cs = getComputedStyle(document.documentElement);
+  ['--jade', '--cinnabar', '--violet', '--azure', '--bronze2', '--paper', '--ink'].forEach(k => cvars[k] = cs.getPropertyValue(k).trim() || '#c99e5e');
+  const m = /#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})/i.exec(cvars['--ink']);
+  cvars.dark = m ? (parseInt(m[1], 16) + parseInt(m[2], 16) + parseInt(m[3], 16)) < 300 : true;
+}
+const lineVar = { eff: '--jade', exp: '--cinnabar', wu: '--violet', ore: '--azure' };
+function applyTheme() {
+  const th = S.opts.theme;
+  if (th === 'auto') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = th;
+  setTimeout(readVars, 30);
+}
+
+/* ---------------- 主循环 ---------------- */
+const STEP = 0.05;
+let lastT = performance.now(), acc = 0;
+let holding = false, holdStart = 0;
+const input = { hold: false, clicks: 0 };
+function pump() {
+  const now = performance.now();
+  let el = (now - lastT) / 1000; lastT = now;
+  if (el > 90) { const r = X.offline(S, el); showOffline(r); el = 0; rebuildAll(); }
+  acc += el;
+  const ev = [];
+  let n = 0;
+  while (acc >= STEP && n < 200) {
+    input.hold = holding && (now - holdStart > 180);
+    X.tick(S, STEP, input, ev); acc -= STEP; n++;
+  }
+  if (acc > STEP * 2) { X.tick(S, acc, { hold: input.hold }, ev); acc = 0; }
+  if (ev.length) handleEvents(ev);
+}
+function clickHit() {
+  if (S.cult && !S.trib) { toast('正在打坐，先「收功」才能炼化'); return; }
+  const M = X.mods(S);
+  if (!S.trib && !X.unlocked(S, S.line, S.sel[S.line])) { toast('境界不足，无法炼化此丹'); return; }
+  const ev = []; S.stats.clicks++; X.hit(S, M, ev, true); handleEvents(ev);
+}
+
+/* ---------------- 事件处理 ---------------- */
+function flushDmg() { if (dmgAcc > 0) { spawnFloat($('floats'), '-' + fmt(dmgAcc), false); dmgAcc = 0; } }
+let lastGainFloat = 0;
+let dmgAcc = 0, gainAcc = { eff: 0, exp: 0, wu: 0, ore: 0 }, killAcc = 0, lastFloat = 0;
+const rate = { exp: [], wu: [] };
+let structDirty = true, gfLogged = 0;
+function handleEvents(ev) {
+  let gf = null;
+  for (const e of ev) {
+    if (e.type === 'hit') { dmgAcc += e.d; FX.hit(e.trib); }
+    else if (e.type === 'kill') {
+      gainAcc[e.line] += e.g; killAcc += (e.n || 1); FX.kill(e.line);
+      if (e.line === 'exp' || e.line === 'wu') rate[e.line].push([performance.now(), e.g]);
+    }
+    else if (e.type === 'stage') {
+      const st = X.STAGES[Math.min(e.s, X.MAX_STAGE)];
+      if (st.minor === 0 && e.s <= X.MAX_STAGE) { toast(`境界突破 · <b>${esc(X.stageName(e.s))}</b>`, true); log('突破至 ' + X.stageName(e.s), true); FX.burst('--bronze2', 40); }
+      else log('晋升 ' + X.stageName(e.s));
+      structDirty = true;
+    }
+    else if (e.type === 'gongfa') gf = e.L;
+    else if (e.type === 'tribWin') { toast(`渡过${esc(X.TRIB_NAMES[e.m])}！`, true); log('渡过' + X.TRIB_NAMES[e.m], true); structDirty = true; }
+    else if (e.type === 'tribFail') { toast(`${esc(X.TRIB_NAMES[e.m])}未能击散，修为折损三成，20 秒后可再渡`, true); log('渡劫失败：' + X.TRIB_NAMES[e.m]); }
+    else if (e.type === 'ach') { toast(`成就 · <b>${esc(e.a.name)}</b>　全局加成 +${Math.round(X.ACH_BONUS * 100)}%`); log('达成成就「' + e.a.name + '」'); }
+  }
+  if (gf !== null && gf !== gfLogged) { gfLogged = gf; log('功法精进：' + X.gongfaName(gf)); }
+}
+function flushFloats(now) {
+  if (now - lastFloat < 200) return; lastFloat = now;
+  if (now - lastGainFloat < 520) { flushDmg(); return; } lastGainFloat = now;
+  const box = $('floats');
+  flushDmg();
+  for (const l of X.LINE_IDS) if (gainAcc[l] > 0) { spawnFloat(box, '+' + fmt(gainAcc[l]) + ' ' + X.LINES[l].res, true, l); gainAcc[l] = 0; }
+}
+let gainSide = 1;
+function spawnFloat(box, text, gain, line) {
+  if (box.childElementCount > 9) box.firstChild.remove();
+  const d = document.createElement('div'); d.className = 'fl' + (gain ? ' gain' : '');
+  d.textContent = text;
+  const a = Math.random() * Math.PI * 2, r = gain ? 40 : 70 + Math.random() * 30;
+  const cx = box.clientWidth / 2, cy = (window.innerWidth <= 760 ? 22 + 75 : 30 + 85);
+  if (gain) { const side = (gainSide = -gainSide); d.style.left = (cx + side * (110 + Math.random() * 20)) + 'px'; d.style.top = (cy - 10 + Math.random() * 30) + 'px'; }
+  else { d.style.left = (cx + Math.cos(a) * r) + 'px'; d.style.top = (cy + Math.sin(a) * r * 0.8) + 'px'; }
+  if (gain) d.style.color = cvars[lineVar[line]];
+  box.appendChild(d); setTimeout(() => d.remove(), gain ? 1300 : 900);
+}
+function rateOf(k) {
+  const now = performance.now(), arr = rate[k];
+  while (arr.length && now - arr[0][0] > 15000) arr.shift();
+  if (!arr.length) return 0;
+  let s = 0; for (const x of arr) s += x[1];
+  return s / Math.max(5, (now - arr[0][0]) / 1000);
+}
+
+/* ---------------- 特效画布 ---------------- */
+const FX = (function () {
+  const cv = $('fx'), ctx = cv.getContext('2d');
+  let W = 0, H = 0, dpr = 1, ps = [], pulse = 0, bolts = [], lastHit = 0;
+  function resize() { const r = cv.getBoundingClientRect(); dpr = Math.min(2, window.devicePixelRatio || 1); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  function center() { const m = window.innerWidth <= 760; return { x: W / 2, y: m ? 22 + 75 : 30 + 85, r: m ? 52 : 59 }; }
+  function col(k) { return cvars[k] || '#c99e5e'; }
+  function add(p) { if (ps.length < 420) ps.push(p); }
+  function hit(trib) {
+    pulse = Math.min(1, pulse + 0.35);
+    const now = performance.now(); if (now - lastHit < 45 || !S.opts.fx) return; lastHit = now;
+    const c = center();
+    for (let i = 0; i < 3; i++) { const a = Math.random() * Math.PI * 2, sp = 60 + Math.random() * 120;
+      add({ x: c.x + Math.cos(a) * c.r, y: c.y + Math.sin(a) * c.r, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: .35 + Math.random() * .2, t: 0, s: 1.6, c: trib ? '#b9a8ff' : '#ffd28a', k: 'spark' }); }
+    if (trib && Math.random() < .12) bolt();
+  }
+  function kill(line) {
+    if (!S.opts.fx) return;
+    const c = center(), cc = col(lineVar[line]);
+    for (let i = 0; i < 8; i++) { const a = Math.random() * Math.PI * 2, sp = 40 + Math.random() * 90;
+      add({ x: c.x, y: c.y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 20, life: .7 + Math.random() * .4, t: 0, s: 2.4, c: cc, k: 'mote' }); }
+    add({ x: c.x, y: c.y, life: .45, t: 0, r0: c.r * .9, c: cc, k: 'ring' });
+  }
+  function burst(k, n) { if (!S.opts.fx) return; const c = center(); for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, sp = 60 + Math.random() * 200; add({ x: c.x, y: c.y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1 + Math.random() * .6, t: 0, s: 2.6, c: col(k), k: 'mote' }); } }
+  function bolt() {
+    const c = center(); const pts = []; let x = c.x + (Math.random() - .5) * 120, y = 0;
+    while (y < c.y - c.r * .6) { pts.push([x, y]); y += 12 + Math.random() * 18; x += (Math.random() - .5) * 26; }
+    pts.push([c.x + (Math.random() - .5) * 20, c.y - c.r * .5]); bolts.push({ pts, t: 0, life: .25 });
+  }
+  let last = performance.now(), flameT = 0, qiT = 0;
+  function frame(now) {
+    const dt = Math.min(.05, (now - last) / 1000); last = now;
+    ctx.clearRect(0, 0, W, H);
+    const c = center();
+    const refining = !S.cult && (S.auto || holding || S.trib);
+    // 火焰
+    if (S.opts.fx) {
+      flameT += dt * (refining ? 60 : S.cult ? 14 : 22);
+      while (flameT > 1) { flameT -= 1; const fx = W / 2 + (Math.random() - .5) * Math.min(150, W * .4);
+        add({ x: fx, y: H - 22, vx: (Math.random() - .5) * 12, vy: -(30 + Math.random() * (refining ? 70 : 35)), life: .6 + Math.random() * .5, t: 0, s: 5 + Math.random() * 6, k: 'flame' }); }
+      if (S.cult) { qiT += dt * 22; while (qiT > 1) { qiT -= 1; const a = Math.random() * Math.PI * 2, r = 120 + Math.random() * 70;
+        add({ a, r, life: 1.6, t: 0, s: 2, c: col('--jade'), k: 'qi' }); } }
+    }
+    ctx.globalCompositeOperation = cvars.dark ? 'lighter' : 'source-over';
+    for (let i = ps.length - 1; i >= 0; i--) {
+      const p = ps[i]; p.t += dt; const k = p.t / p.life;
+      if (k >= 1) { ps.splice(i, 1); continue; }
+      if (p.k === 'flame') {
+        p.x += p.vx * dt; p.y += p.vy * dt;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.s * (1 - k * .5));
+        const a = (1 - k) * .55; g.addColorStop(0, `rgba(255,214,140,${a})`); g.addColorStop(.5, `rgba(232,105,60,${a * .6})`); g.addColorStop(1, 'rgba(120,30,10,0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, 7); ctx.fill();
+      } else if (p.k === 'qi') {
+        const rr = p.r * (1 - k); const a = p.a + k * 3.2; const x = c.x + Math.cos(a) * rr, y = c.y + Math.sin(a) * rr * .8;
+        ctx.globalAlpha = Math.sin(k * Math.PI) * .9; ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(x, y, p.s, 0, 7); ctx.fill(); ctx.globalAlpha = 1;
+      } else if (p.k === 'ring') {
+        ctx.globalAlpha = (1 - k) * .8; ctx.strokeStyle = p.c; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(p.x, p.y, p.r0 + k * 46, 0, 7); ctx.stroke(); ctx.globalAlpha = 1;
+      } else {
+        p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= .96; p.vy = p.vy * .96 + (p.k === 'mote' ? 30 * dt : 0);
+        ctx.globalAlpha = 1 - k; ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x, p.y, p.s * (1 - k * .5), 0, 7); ctx.fill(); ctx.globalAlpha = 1;
+      }
+    }
+    for (let i = bolts.length - 1; i >= 0; i--) { const b = bolts[i]; b.t += dt; if (b.t > b.life) { bolts.splice(i, 1); continue; }
+      ctx.globalAlpha = 1 - b.t / b.life; ctx.strokeStyle = '#d9d0ff'; ctx.lineWidth = 2.2; ctx.beginPath(); b.pts.forEach((q, j) => j ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1])); ctx.stroke(); ctx.globalAlpha = 1; }
+    ctx.globalCompositeOperation = 'source-over';
+    // 丹药受击回弹
+    pulse = Math.max(0, pulse - dt * 6);
+    $('pillWrap').style.transform = `scale(${1 - pulse * .06})`;
+    $('dingGlow').setAttribute('opacity', (refining ? .95 : S.cult ? .45 : .65).toString());
+  }
+  window.addEventListener('resize', resize);
+  return { resize, frame, hit, kill, burst };
+})();
+
+/* ---------------- 构建静态结构 ---------------- */
+function buildLineTabs() {
+  const nav = $('lineTabs'); nav.innerHTML = '';
+  for (const id of X.LINE_IDS) {
+    const L = X.LINES[id]; const b = document.createElement('button');
+    b.className = 'line-tab'; b.setAttribute('role', 'tab'); b.dataset.line = id; b.style.setProperty('--lc', LC[id]);
+    const locked = X.curMajor(S) < L.start;
+    b.disabled = locked; b.setAttribute('aria-selected', String(S.line === id));
+    b.innerHTML = `<span class="dot"></span>${L.name}<small>${locked ? '需' + X.MAJORS[L.start] : L.res}</small>`;
+    b.addEventListener('click', () => setLine(id));
+    nav.appendChild(b);
+  }
+}
+function setLine(id) {
+  if (X.curMajor(S) < X.LINES[id].start) { toast('境界不足，' + X.MAJORS[X.LINES[id].start] + '方可炼' + X.LINES[id].name); return; }
+  S.line = id; clampSel(); pillKey = ''; buildLineTabs(); buildPu(); renderFast();
+}
+function clampSel() {
+  for (const l of X.LINE_IDS) {
+    const lo = X.LINES[l].start * 4, hi = X.maxUnlocked(S, l);
+    if (S.sel[l] < lo) S.sel[l] = lo; if (S.sel[l] > hi) S.sel[l] = hi;
+  }
+}
+function moveTier(d) {
+  const l = S.line, lo = X.LINES[l].start * 4, hi = X.maxUnlocked(S, l);
+  const n = S.sel[l] + d;
+  if (n < lo || n > hi) { if (n > hi) toast('更高品丹药需提升境界'); return; }
+  S.sel[l] = n; pillKey = ''; renderFast(); markPu();
+}
+function pickBest() { const b = X.bestTier(S, X.mods(S), S.line); if (b >= 0) { S.sel[S.line] = b; pillKey = ''; renderFast(); markPu(); } }
+
+function buildAutos() {
+  const box = $('autos'); box.innerHTML = '';
+  const list = [['dantong', 'autoPick', '自动择丹'], ['lingtong', 'autoCycle', '自动周天'], ['zhoutian', 'autoRotate', '四系轮转'], ['kuilei', 'autoBuy', '自动扩建'], ['hufa', 'autoTrib', '自动渡劫']];
+  for (const [t, o, name] of list) {
+    if (!X.TL(S, t)) continue;
+    const b = document.createElement('button'); b.className = 'chip'; b.textContent = name; b.dataset.opt = o;
+    b.setAttribute('aria-pressed', String(!!S.opts[o]));
+    b.addEventListener('click', () => { S.opts[o] = !S.opts[o]; b.setAttribute('aria-pressed', String(S.opts[o])); if (o === 'autoCycle' && S.opts[o]) { S.cyc.phase = 'ref'; S.cyc.t = 0; } toast(name + (S.opts[o] ? ' 已开启' : ' 已关闭')); });
+    box.appendChild(b);
+  }
+  box.hidden = !box.childElementCount;
+}
+
+/* ---------------- 卷册：丹谱 ---------------- */
+let puKey = '';
+function buildPu() {
+  const pane = $('pane-pu'); const l = S.line, L = X.LINES[l];
+  const hi = Math.min(X.TIERS - 1, X.maxUnlocked(S, l) + 4);
+  puKey = l + ':' + hi;
+  let h = `<h4 style="color:${LC[l]}">${L.name}</h4><p class="lead">${LDESC[l]}</p><div class="rows">`;
+  for (let t = hi; t >= L.start * 4; t--) {
+    const p = L.tiers[t]; const c = pillColors(l, t);
+    h += `<button class="row" data-t="${t}" style="--c1:${c.c1};--c2:${c.c2};--glow:${c.glow};--lc:${LC[l]}"><span class="sw"></span><span><div class="nm">${p.name}</div><div class="ds" data-ds></div></span><span class="rt" data-rt></span></button>`;
+  }
+  pane.innerHTML = h + '</div>';
+  pane.querySelectorAll('.row').forEach(r => r.addEventListener('click', () => {
+    const t = +r.dataset.t; if (!X.unlocked(S, l, t)) { toast('需' + X.MAJORS[X.tierOf(l, t).m] + '境'); return; }
+    S.sel[l] = t; pillKey = ''; renderFast(); markPu();
+  }));
+  updPu();
+}
+function markPu() { $('pane-pu').querySelectorAll('.row').forEach(r => r.classList.toggle('cur', +r.dataset.t === S.sel[S.line])); }
+function updPu() {
+  const l = S.line, M = X.mods(S), mul = X.lineMul(l, M);
+  const hi = Math.min(X.TIERS - 1, X.maxUnlocked(S, l) + 4);
+  if (puKey !== l + ':' + hi) return buildPu();
+  $('pane-pu').querySelectorAll('.row').forEach(r => {
+    const t = +r.dataset.t, p = X.tierOf(l, t), un = X.unlocked(S, l, t);
+    r.classList.toggle('lock', !un); r.classList.toggle('cur', t === S.sel[l]);
+    r.querySelector('[data-ds]').textContent = un ? `气血 ${fmt(p.hp)} · 每颗 +${fmt(p.val * mul)}` : `需${X.MAJORS[p.m]}境 · 每颗 +${fmt(p.val * mul)}`;
+    const k = un ? X.killsPerSec(S, M, l, t) : 0;
+    r.querySelector('[data-rt]').innerHTML = `<b>${fmt(S.counts[l][t])}</b>${un ? (k >= 1 ? fmt(k * M.W) + ' 颗/秒' : fmt(1 / k) + ' 秒/炉') : '未解锁'}`;
+  });
+}
+
+/* ---------------- 卷册：洞府 ---------------- */
+let buyMax = false;
+function buildFu() {
+  const pane = $('pane-fu');
+  let h = `<p class="lead">以灵石扩建洞府。每项效果对四系丹药同样生效。</p><div class="seg"><button data-m="1" aria-pressed="${!buyMax}">单次</button><button data-m="max" aria-pressed="${buyMax}">买满</button></div><div class="rows">`;
+  for (const b of X.BUILDINGS) h += `<div class="card" data-b="${b.id}"><div class="t"></div><div class="d"></div><button class="buy"></button></div>`;
+  pane.innerHTML = h + '</div>';
+  pane.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => { buyMax = b.dataset.m === 'max'; buildFu(); }));
+  pane.querySelectorAll('.card').forEach(c => c.querySelector('.buy').addEventListener('click', () => {
+    const id = c.dataset.b; let n = 0;
+    while (X.buy(S, id)) { n++; if (!buyMax) break; if (n > 500) break; }
+    if (n) { log(`扩建${X.BMAP[id].name} → ${S.bld[id]} 级`); updFu(); renderFast(); }
+  }));
+  updFu();
+}
+function updFu() {
+  const pane = $('pane-fu'); if (!pane.firstChild) return;
+  pane.querySelectorAll('.card').forEach(c => {
+    const b = X.BMAP[c.dataset.b], L = S.bld[b.id], cost = X.bCost(b, L);
+    const lockedReq = b.req && X.curMajor(S) < b.req;
+    c.querySelector('.t').innerHTML = `${b.name}<small>${esc(b.title(L))} · ${L}${b.max < Infinity ? '/' + b.max : ''} 级</small>`;
+    c.querySelector('.d').textContent = lockedReq ? `需${X.MAJORS[b.req]}境开启` : b.desc(L) + (L < b.max ? '　' + b.next(L) : '');
+    const btn = c.querySelector('.buy');
+    if (L >= b.max) { btn.disabled = true; btn.classList.add('max'); btn.innerHTML = '已满级'; }
+    else { btn.disabled = lockedReq || S.stones < cost; btn.innerHTML = `扩建<small>${fmt(cost)} 灵石</small>`; }
+  });
+}
+function cheapestBuild() {
+  let bc = Infinity; for (const b of X.BUILDINGS) { const L = S.bld[b.id]; if (L >= b.max || (b.req && X.curMajor(S) < b.req)) continue; bc = Math.min(bc, X.bCost(b, L)); } return bc;
+}
+
+/* ---------------- 卷册：功法 ---------------- */
+function buildGf() {
+  const pane = $('pane-gf');
+  const L = S.gf, M = X.mods(S);
+  let h = `<p class="lead">道悟积累至所需数量，功法自动精进一重。每重修炼速度 ×${X.CFG.GR}，每满九重换修更高功法并额外 ×1.3。</p>`;
+  h += `<dl class="kv"><dt>当前功法</dt><dd>${X.gongfaName(L)}</dd><dt>修炼倍率</dt><dd>×${fmt(X.gongfaMul(L))}</dd><dt>下一重需道悟</dt><dd>${fmt(X.gongfaNeed(L))}</dd><dt>当前道悟</dt><dd>${fmt(S.wu)}</dd><dt>道悟获取倍率</dt><dd>×${fmt(M.wuMul)}</dd></dl><h4>功法谱</h4><div class="rows">`;
+  ['长春功', '青元诀', '玄元心经', '紫府真经', '太清道经', '九转玄功', '混元大道经', '鸿蒙造化诀'].forEach((n, i) => {
+    const lo = i * 9 + 1, hi = i * 9 + 9; const st = L >= hi ? '圆满' : L >= lo ? `第${L - lo + 1}重` : '未修';
+    h += `<div class="card"><div class="t">${n}<small>${lo}–${hi} 重</small></div><div class="d">${st}</div></div>`;
+  });
+  pane.innerHTML = h + '</div>';
+}
+
+/* ---------------- 卷册：轮回 ---------------- */
+function buildLh() {
+  const pane = $('pane-lh'); const can = X.canRebirth(S), g = X.dgGain(S);
+  let h = `<p class="lead">达到化神后可轮回：舍弃今生境界、丹药与洞府，保留道果、天赋、成就与轮回次数。走得越远，道果越多。</p>`;
+  h += `<dl class="kv"><dt>轮回次数</dt><dd>${S.reb.n}</dd><dt>本世最高</dt><dd>${X.stageName(S.runMax)}</dd><dt>可得道果</dt><dd id="lhGain">${can ? fmt(g) : '需达化神'}</dd><dt>持有道果</dt><dd id="lhDg">${fmt(S.reb.dg)}</dd></dl>`;
+  h += `<button class="big-btn" id="btnReb" ${can ? '' : 'disabled'}>轮回转世</button>`;
+  h += `<h4>轮回印记</h4>`;
+  for (const m of X.REB_MILESTONES) h += `<div class="ms ${S.reb.n >= m.n ? 'on' : ''}"><span>${m.text}</span><span>${m.n} 世</span></div>`;
+  h += `<h4 style="margin-top:14px">天赋</h4>`;
+  if (S.reb.n < 1) h += `<p class="lead">首次轮回后开启。</p>`;
+  h += `<div class="rows" id="talRows">`;
+  for (const t of X.TALENTS) h += `<div class="card" data-t="${t.id}"><div class="t"></div><div class="d"></div><button class="buy"></button></div>`;
+  pane.innerHTML = h + '</div>';
+  $('btnReb').addEventListener('click', confirmRebirth);
+  pane.querySelectorAll('#talRows .card').forEach(c => c.querySelector('.buy').addEventListener('click', () => {
+    if (X.buyTal(S, c.dataset.t)) { const t = X.TMAP[c.dataset.t]; log(`参悟天赋「${t.name}」→ ${X.TL(S, t.id)}`); updLh(); buildAutos(); renderFast(); }
+  }));
+  updLh();
+}
+function updLh() {
+  const pane = $('pane-lh'); if (!$('btnReb')) return;
+  const can = X.canRebirth(S);
+  $('btnReb').disabled = !can; $('lhGain').textContent = can ? fmt(X.dgGain(S)) : '需达化神'; $('lhDg').textContent = fmt(S.reb.dg);
+  pane.querySelectorAll('#talRows .card').forEach(c => {
+    const t = X.TMAP[c.dataset.t], L = X.TL(S, t.id), cost = X.tCost(t, L);
+    c.querySelector('.t').innerHTML = `${t.name}<small>${t.auto ? (L ? '已解锁' : '自动化') : 'Lv ' + L + (t.max < Infinity ? '/' + t.max : '')}</small>`;
+    c.querySelector('.d').textContent = t.desc;
+    const b = c.querySelector('.buy');
+    if (L >= t.max) { b.disabled = true; b.classList.add('max'); b.innerHTML = t.auto ? '已解锁' : '已满'; }
+    else { b.disabled = !X.canTal(S, t.id); b.innerHTML = `参悟<small>${fmt(cost)} 道果</small>`; }
+  });
+}
+function confirmRebirth() {
+  if (!X.canRebirth(S)) return;
+  const g = X.dgGain(S);
+  modal(`<h3 class="brush">轮回转世</h3><p>本世最高 <b>${X.stageName(S.runMax)}</b>，可得道果 <b>${fmt(g)}</b>。</p><p>境界、法力、丹药、功法、灵石与洞府将全部归零；道果、天赋、成就、轮回印记与设置保留。</p>`,
+    [['再修一会儿'], ['轮回', true, () => {
+      const got = X.rebirth(S); log(`第 ${S.reb.n} 次轮回，得道果 ${fmt(got)}`, true);
+      toast(`轮回第 <b>${S.reb.n}</b> 世 · 道果 +${fmt(got)}`, true); FX.burst('--bronze2', 60);
+      rebuildAll(); save(); switchTab('lh');
+    }]]);
+}
+
+/* ---------------- 卷册：成就 ---------------- */
+function buildCj() {
+  const n = X.achCount(S);
+  let h = `<p class="lead">已达成 ${n} / ${X.ACH.length}，每项使神识伤害与修炼速度 +${Math.round(X.ACH_BONUS * 100)}%（当前 ×${fmt(X.achMul(S))}）。成就跨轮回保留。</p><div class="ach-grid">`;
+  for (const a of X.ACH) h += `<div class="ach ${S.ach[a.id] ? 'on' : ''}"><b>${a.name}</b>${a.desc}</div>`;
+  $('pane-cj').innerHTML = h + '</div>';
+}
+
+/* ---------------- 卷册：设置 ---------------- */
+function buildSz() {
+  const o = S.opts, st = S.stats;
+  let h = '';
+  h += `<div class="set"><span>数字格式</span><span class="seg" style="margin:0"><button data-sci="0" aria-pressed="${!o.sci}">万·亿·兆</button><button data-sci="1" aria-pressed="${o.sci}">科学计数</button></span></div>`;
+  h += `<div class="set"><span>主题</span><span class="seg" style="margin:0"><button data-th="auto" aria-pressed="${o.theme === 'auto'}">跟随系统</button><button data-th="dark" aria-pressed="${o.theme === 'dark'}">夜</button><button data-th="light" aria-pressed="${o.theme === 'light'}">昼</button></span></div>`;
+  h += `<div class="set"><span>粒子特效</span><span class="seg" style="margin:0"><button data-fx="1" aria-pressed="${o.fx}">开</button><button data-fx="0" aria-pressed="${!o.fx}">关</button></span></div>`;
+  h += `<div class="set"><span>周天节律（需灵童）</span><span>修炼 <input type="number" min="2" max="600" id="cycC" value="${o.cycCult}"> 秒 · 炼化 <input type="number" min="2" max="600" id="cycR" value="${o.cycRef}"> 秒</span></div>`;
+  const off = X.offlineCaps(S);
+  h += `<div class="set"><span>离线收益</span><span>${Math.round(off.eff * 100)}% · 上限 ${off.cap / 3600} 小时</span></div>`;
+  h += `<div class="set-actions"><button id="btnSave">立即存档</button><button id="btnExport">导出存档</button><button id="btnImport">导入存档</button><button id="btnReset" class="danger">删档重来</button></div>`;
+  h += `<h4 style="margin-top:16px">修行记录</h4><dl class="kv"><dt>累计修行</dt><dd>${fmtT(st.time)}</dd><dt>累计炼丹</dt><dd>${fmt(st.kills)}</dd><dt>亲手炼化</dt><dd>${fmt(st.clicks)}</dd><dt>渡劫成功 / 失败</dt><dd>${st.tribs} / ${st.tribFail}</dd><dt>奇遇</dt><dd>${st.evts}</dd><dt>历世最高</dt><dd>${X.stageName(st.maxStageEver)}</dd></dl>`;
+  h += `<div class="keys"><kbd>空格</kbd> 自动炼化　<kbd>C</kbd> 修炼/收功　<kbd>Q</kbd><kbd>E</kbd> 切换丹系　<kbd>A</kbd><kbd>D</kbd> 或 <kbd>←</kbd><kbd>→</kbd> 切换品阶　<kbd>B</kbd> 择优　<kbd>T</kbd> 渡劫　<br>按住丹药可持续炼化；修炼与炼化不能同时进行，聚灵阵可让炼化时也缓慢修炼。</div>`;
+  const pane = $('pane-sz'); pane.innerHTML = h;
+  pane.querySelectorAll('[data-sci]').forEach(b => b.addEventListener('click', () => { o.sci = b.dataset.sci === '1'; X.setSci(o.sci); rebuildAll(); switchTab('sz'); }));
+  pane.querySelectorAll('[data-th]').forEach(b => b.addEventListener('click', () => { o.theme = b.dataset.th; applyTheme(); buildSz(); }));
+  pane.querySelectorAll('[data-fx]').forEach(b => b.addEventListener('click', () => { o.fx = b.dataset.fx === '1'; buildSz(); }));
+  const clampIn = (el, k) => el.addEventListener('change', () => { let v = Math.round(+el.value); if (!(v >= 2)) v = 2; if (v > 600) v = 600; el.value = v; o[k] = v; });
+  clampIn($('cycC'), 'cycCult'); clampIn($('cycR'), 'cycRef');
+  $('btnSave').addEventListener('click', () => { save(); toast('已存档'); });
+  $('btnExport').addEventListener('click', () => {
+    save(); let code = ''; try { code = btoa(unescape(encodeURIComponent(X.serialize(S)))); } catch (e) { code = ''; }
+    modal(`<h3 class="brush">导出存档</h3><p>复制下面整段文字保存，可在其他设备导入。</p><textarea readonly id="exTxt">${code}</textarea>`, [['复制', true, () => { const t = $('exTxt'); t.select(); try { navigator.clipboard.writeText(t.value); toast('已复制'); } catch (e) { document.execCommand('copy'); } return false; }], ['关闭']]);
+  });
+  $('btnImport').addEventListener('click', () => {
+    modal(`<h3 class="brush">导入存档</h3><p>粘贴导出的存档文字。当前进度会被覆盖。</p><textarea id="imTxt" placeholder="在此粘贴"></textarea><p id="imErr" style="color:var(--cinnabar)"></p>`, [['取消'], ['导入', true, () => {
+      try { const txt = decodeURIComponent(escape(atob($('imTxt').value.trim()))); const NS = X.deserialize(txt); S = NS; X.setSci(S.opts.sci); applyTheme(); rebuildAll(); save(); toast('存档已导入'); }
+      catch (e) { $('imErr').textContent = '无法识别这段存档：请确认完整复制了导出的全部文字。'; return false; }
+    }]]);
+  });
+  $('btnReset').addEventListener('click', () => {
+    modal(`<h3 class="brush">删档重来</h3><p>将清除全部进度，包括轮回、道果与成就，且无法恢复。</p>`, [['取消'], ['确认删档', true, () => { S = X.newState(); applyTheme(); rebuildAll(); save(); toast('已重新开始'); }]]);
+  });
+}
+
+/* ---------------- 弹窗 ---------------- */
+function modal(html, buttons) {
+  const d = $('modal');
+  d.innerHTML = html + '<div class="acts"></div>';
+  const acts = d.querySelector('.acts');
+  for (const [label, pri, fn] of buttons) {
+    const b = document.createElement('button'); b.textContent = label; if (pri) b.className = 'pri';
+    b.addEventListener('click', () => { const r = fn ? fn() : undefined; if (r !== false) d.close(); });
+    acts.appendChild(b);
+  }
+  if (typeof d.showModal === 'function') d.showModal(); else d.setAttribute('open', '');
+}
+function showOffline(r) {
+  if (!r || r.sec < 60) return;
+  const b = r.before, a = r.after; const rows = [];
+  if (a.P > b.P) rows.push(['法力', '+' + fmt(a.P - b.P)]);
+  if (a.E > b.E) rows.push(['吐纳', '+' + fmt(a.E - b.E)]);
+  if (a.stage > b.stage) rows.push(['境界', X.stageName(b.stage) + ' → ' + X.stageName(a.stage)]);
+  else if (a.exp > b.exp) rows.push(['修为', '+' + fmt(a.exp - b.exp)]);
+  if (a.gf > b.gf) rows.push(['功法', X.gongfaName(a.gf)]);
+  if (a.stones > b.stones) rows.push(['灵石', '+' + fmt(a.stones - b.stones)]);
+  const capNote = r.used < r.sec ? `（静室上限 ${fmtT(r.used)}）` : '';
+  modal(`<h3 class="brush">出关</h3><p>闭关 ${fmtT(r.sec)}${capNote}，按 ${Math.round(r.eff * 100)}% 效率修行。</p>` +
+    (rows.length ? `<dl class="kv">${rows.map(x => `<dt>${x[0]}</dt><dd>${esc(x[1])}</dd>`).join('')}</dl>` : '<p>离开时既未修炼也未炼化，此次闭关没有收获。下次离开前开启「打坐修炼」或「自动炼化」。</p>'), [['继续修行', true]]);
+  log('出关：闭关 ' + fmtT(r.sec), true);
+}
+
+/* ---------------- 卷册切换 ---------------- */
+let curTab = 'pu';
+function switchTab(t) {
+  curTab = t;
+  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === t)));
+  document.querySelectorAll('.pane').forEach(p => p.hidden = p.id !== 'pane-' + t);
+  ({ pu: buildPu, fu: buildFu, gf: buildGf, lh: buildLh, cj: buildCj, sz: buildSz })[t]();
+}
+function updTab() {
+  if (curTab === 'pu') updPu(); else if (curTab === 'fu') updFu(); else if (curTab === 'lh') updLh();
+  else if (curTab === 'gf') { if (S.gf !== gfShown) { gfShown = S.gf; buildGf(); } }
+  else if (curTab === 'cj') { const n = X.achCount(S); if (n !== achShown) { achShown = n; buildCj(); } }
+}
+let gfShown = -1, achShown = -1;
+
+/* ---------------- 快速渲染 ---------------- */
+let pillKey = '';
+const RING_C = 2 * Math.PI * 78;
+function setText(id, t) { const e = $(id); if (e.textContent !== t) e.textContent = t; }
+let lastMajor = -1;
+function renderFast() {
+  const M = X.mods(S);
+  const cm = X.curMajor(S);
+  if (cm !== lastMajor) { lastMajor = cm; buildLineTabs(); clampSel(); }
+  // 顶栏
+  setText('tReb', S.reb.n ? `第 ${S.reb.n + 1} 世` : '初入仙途');
+  setText('tDg', fmt(S.reb.dg)); setText('tRun', fmtT(S.runTime));
+  // 境界
+  const st = X.STAGES[Math.min(S.stage, X.MAX_STAGE)];
+  setText('rMajor', S.stage > X.MAX_STAGE ? '道祖' : st.mname);
+  setText('rMinor', S.stage > X.MAX_STAGE ? (S.stage - X.MAX_STAGE) + '重天' : st.sub);
+  const need = X.stageNeed(S.stage), pr = Math.min(1, S.exp / need);
+  $('expFill').style.width = (pr * 100).toFixed(1) + '%';
+  setText('expText', `修为 ${fmt(S.exp)} / ${fmt(need)}`);
+  const er = rateOf('exp');
+  setText('expEta', pr >= 1 ? '已圆满' : er > 0 ? '约 ' + fmtT((need - S.exp) / er) : '');
+  setText('mRealm', X.stageName(S.stage));
+  setText('mStats', `法力 ${fmt(S.P)} · 每击 ${fmt(X.hitDmg(S, M))} · 灵石 ${fmt(S.stones)}`);
+  $('mExp').style.width = (pr * 100).toFixed(1) + '%';
+  const tr = X.tribReady(S), tb = $('btnTrib'), mt = $('mTrib');
+  tb.hidden = !tr || !!S.trib; mt.hidden = tb.hidden;
+  if (tr && !S.trib) {
+    const nm = X.TRIB_NAMES[st.major + 1], hp = X.tribHP(S, st.major + 1);
+    const dps = X.hitDmg(S, M) * M.hitRate, cap = dps * X.tribDur(S);
+    tb.disabled = S.tribCD > 0; tb.textContent = S.tribCD > 0 ? `劫后调息 ${Math.ceil(S.tribCD)} 秒` : `迎接${nm}`;
+    mt.disabled = tb.disabled; mt.textContent = tb.textContent + (cap >= hp ? '' : '（火候不足）');
+    setText('tribNote', `劫云 ${fmt(hp)} · 预计 ${X.tribDur(S)} 秒可造成 ${fmt(cap)}（${cap >= hp ? '有望渡过' : '火候不足 ' + Math.round(cap / hp * 100) + '%'}）`);
+  } else setText('tribNote', S.trib ? `正在渡${X.TRIB_NAMES[S.trib.m]}……` : (S.stage < X.MAX_STAGE && st.last ? '圆满后需渡天劫方可突破' : ''));
+  // 数值
+  setText('sP', fmt(S.P)); setText('sHit', fmt(X.hitDmg(S, M)));
+  setText('sCult', fmt(X.cultRate(S, M) * (S.cult ? 1 : M.julin)) + (S.cult ? '' : M.julin ? '（聚灵）' : ''));
+  setText('sE', fmt(S.E)); setText('sW', '×' + fmt(M.W)); setText('sHR', M.hitRate + ' 次/秒');
+  setText('sStone', fmt(S.stones)); setText('sAch', '+' + Math.round((X.achMul(S) - 1) * 100) + '%');
+  // 功法
+  setText('gfName', X.gongfaName(S.gf));
+  if (X.curMajor(S) < 1) { setText('gfSub', '筑基后可炼悟道丹修习功法'); $('wuFill').style.width = '0%'; setText('wuText', ''); setText('wuNext', ''); }
+  else {
+    setText('gfSub', `修炼倍率 ×${fmt(X.gongfaMul(S.gf))}`);
+    const gn = X.gongfaNeed(S.gf); $('wuFill').style.width = Math.min(100, S.wu / gn * 100).toFixed(1) + '%';
+    setText('wuText', `道悟 ${fmt(S.wu)} / ${fmt(gn)}`); const wr = rateOf('wu'); setText('wuNext', wr > 0 ? '约 ' + fmtT((gn - S.wu) / wr) : '');
+  }
+  // 增益
+  const bf = $('buffs'); const bk = S.buffs.map(b => b.name + Math.ceil(b.t)).join('|');
+  if (bf.dataset.k !== bk) { bf.dataset.k = bk; bf.innerHTML = S.buffs.map(b => `<div class="buff"><span><b>${esc(b.name)}</b>　${b.k === 'cult' ? '修炼' : b.k === 'dmg' ? '伤害' : '成丹'} ×${fmt(b.v)}</span><span>${Math.ceil(b.t)} 秒</span></div>`).join(''); }
+  // 丹药
+  renderPill(M);
+  // 按钮
+  const bc = $('btnCult'); bc.setAttribute('aria-pressed', String(S.cult)); bc.firstChild.textContent = S.cult ? '收功' : '打坐修炼';
+  bc.disabled = !!S.trib;
+  const ba = $('btnAuto'); ba.setAttribute('aria-pressed', String(S.auto && !S.cult));
+  $('stage').classList.toggle('cult', S.cult && !S.trib);
+  // 自动化按钮状态
+  $('autos').querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(!!S.opts[c.dataset.opt])));
+  // 奇遇
+  const q = $('qiyu');
+  if (S.evt) { q.hidden = false; q.style.left = (S.evt.x * 100) + '%'; q.style.top = (S.evt.y * 100) + '%'; const g = { tide: '潮', fire: '火', stone: '石', wu: '悟', elder: '传', pill: '方' }[S.evt.id]; setText('qiyuGlyph', g); q.style.opacity = Math.min(1, S.evt.t / 3).toFixed(2); }
+  else q.hidden = true;
+  // 徽标
+  $('bdgFu').hidden = !(S.stones >= cheapestBuild());
+  $('bdgLh').hidden = !((X.canRebirth(S) && S.reb.n === 0) || X.TALENTS.some(t => X.canTal(S, t.id)));
+  // 提示
+  setText('hint', hintText(M));
+  setText('stageTag', S.trib ? '天劫降临' : S.cult ? '打坐中 · 吐纳化为法力' : (S.auto ? '自动炼化中' : '按住丹药炼化'));
+}
+function renderPill(M) {
+  const pill = $('pill'), ring = $('ringHp'), wrap = $('pillWrap');
+  if (S.trib) {
+    const key = 'trib' + S.trib.m;
+    if (pillKey !== key) { pillKey = key; pill.className = 'pill trib'; wrap.style.setProperty('--lc', 'var(--cinnabar)'); $('pillWrap').parentElement.style.setProperty('--lc', 'var(--cinnabar)'); setText('pName', X.TRIB_NAMES[S.trib.m]); }
+    ring.style.strokeDasharray = RING_C; ring.style.strokeDashoffset = RING_C * (1 - Math.max(0, S.trib.hp / S.trib.max));
+    $('pSub').innerHTML = `劫云 <b>${fmt(Math.max(0, S.trib.hp))}</b> / ${fmt(S.trib.max)}`;
+    const tt = $('tribTimer'); tt.hidden = false; tt.textContent = '剩余 ' + Math.max(0, S.trib.t).toFixed(1) + ' 秒';
+    return;
+  }
+  $('tribTimer').hidden = true;
+  const l = S.line, t = S.sel[l], p = X.tierOf(l, t);
+  const key = l + t;
+  if (pillKey !== key) {
+    pillKey = key; const c = pillColors(l, t);
+    pill.className = 'pill' + (p.g === 3 ? ' g3' : '') + (p.m === 16 ? ' dao' : '');
+    pill.style.setProperty('--c1', c.c1); pill.style.setProperty('--c2', c.c2); pill.style.setProperty('--glow', c.glow);
+    pill.style.setProperty('--gl', String(p.g)); pill.style.setProperty('--vein', String([0, .25, .55, .9][p.g]));
+    wrap.style.setProperty('--lc', LC[l]); document.querySelector('.pill-sub').style.setProperty('--lc', LC[l]);
+    setText('pName', p.name);
+    $('pillWrap').setAttribute('aria-label', '按住炼化' + p.name);
+  }
+  const un = X.unlocked(S, l, t);
+  pill.classList.toggle('locked', !un);
+  const hp = X.curHP(S, l, t);
+  ring.style.strokeDasharray = RING_C; ring.style.strokeDashoffset = RING_C * (1 - hp / p.hp);
+  const k = X.killsPerSec(S, M, l, t);
+  const per = p.val * X.lineMul(l, M) * M.W;
+  $('pSub').innerHTML = un ? `气血 ${fmt(hp)} / ${fmt(p.hp)} · 每炉 <b>+${fmt(per)}</b> ${X.LINES[l].res} · ${k >= 1 ? fmt(k) + ' 炉/秒' : fmt(1 / k) + ' 秒/炉'}` : `需${X.MAJORS[p.m]}境方可炼化`;
+}
+
+/* ---------------- 新手与情境提示 ---------------- */
+const TIPS = [
+  '修炼与炼化交替进行：炼吐纳丹涨吐纳，打坐把吐纳化成法力，法力越高炼得越快。',
+  '最好的丹药通常是「刚好一击可破」的那一品——再往上打不动，往下收益少。「择优」会替你算。',
+  '丹鼎让每次炼化成丹多颗，对四系丹药都生效，是最划算的扩建之一。',
+  '聚灵阵让你在炼化时也能以一定比例修炼，满级后可少切换许多次。',
+  '天劫有时限。渡劫前看一眼预计伤害，不足时先修炼、升法宝，再渡。',
+  '奇遇会不时在丹炉上方出现，点击即可领取，十余秒后消散。',
+  '轮回得到的道果可参悟天赋；自动化天赋能让你挂机时也高效修行。',
+  '离开前开启修炼或自动炼化，回来时会按静室效率结算闭关收益。',
+];
+function hintText(M) {
+  if (S.trib) return '天劫降临！保持炼化，在时限内击散劫云即可突破大境界。';
+  if (X.tribReady(S)) {
+    const hp = X.tribHP(S, X.curMajor(S) + 1), cap = X.hitDmg(S, M) * M.hitRate * X.tribDur(S);
+    return cap >= hp ? '修为已至圆满，点击左侧「迎接天劫」突破大境界。' : '修为圆满，但火候不足以击散劫云：先打坐修炼、炼吐纳丹、扩建法宝，提升每击伤害后再渡劫。';
+  }
+  if (S.E === 0 && S.reb.n === 0) return '按住中间的丹药，或打开「自动炼化」，炼出第一颗吐纳丹。';
+  if (S.P < 40 && !S.cult && S.reb.n === 0) return '有了吐纳，点「打坐修炼」让吐纳化为法力。法力决定每击伤害。';
+  if (S.cult && S.runTime > 0 && S.E > 0 && X.cultRate(S, M) * 30 < S.P * 0.05) return '修炼进展已很慢：吐纳跟不上法力了，收功去炼化更高品的吐纳丹吧。';
+  const b = X.bestTier(S, M, S.line);
+  if (!S.cult && b > S.sel[S.line] && !(S.opts.autoPick && X.TL(S, 'dantong'))) return '法力已能炼化更高品丹药，点「择优」切到 ' + X.tierOf(S.line, b).name + '。';
+  if (S.counts.exp.every(c => c === 0) && S.E > 5) return '切到「修为丹」炼化来积累修为，修为圆满即可突破境界。';
+  if (S.stones === 0 && S.counts.ore.every(c => c === 0) && S.runTime > 90) return '切到「灵矿」开采灵石，用于扩建洞府。';
+  if (S.stones >= cheapestBuild() && S.runTime < 1200 && S.reb.n === 0) return '灵石已足够扩建洞府，打开右侧「洞府」看看。';
+  if (X.canRebirth(S) && S.reb.n === 0) return '已至化神，可以轮回了：舍弃今生，换取道果强化来世。也可继续冲击更高境界，道果更多。';
+  return TIPS[Math.floor(Date.now() / 12000) % TIPS.length];
+}
+
+/* ---------------- 全部重建 ---------------- */
+function rebuildAll() {
+  X.setSci(S.opts.sci); clampSel(); pillKey = ''; puKey = ''; gfShown = -1; achShown = -1;
+  buildLineTabs(); buildAutos(); renderLog(); switchTab(curTab); renderFast();
+}
+
+/* ---------------- 输入 ---------------- */
+function bindInput() {
+  const pw = $('pillWrap');
+  pw.addEventListener('pointerdown', e => { e.preventDefault(); try { pw.setPointerCapture(e.pointerId); } catch (_) {} holding = true; holdStart = performance.now(); clickHit(); });
+  const up = () => { holding = false; };
+  pw.addEventListener('pointerup', up); pw.addEventListener('pointercancel', up); pw.addEventListener('lostpointercapture', up);
+  pw.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); clickHit(); } });
+  pw.addEventListener('contextmenu', e => e.preventDefault());
+  $('btnCult').addEventListener('click', () => { if (S.trib) return; S.cult = !S.cult; if (S.cult) { holding = false; } if (S.opts.autoCycle && X.TL(S, 'lingtong')) { S.cyc.phase = S.cult ? 'cult' : 'ref'; S.cyc.t = 0; } renderFast(); });
+  $('btnAuto').addEventListener('click', () => { if (S.cult && !S.trib) { S.cult = false; S.auto = true; } else S.auto = !S.auto; if (S.opts.autoCycle && X.TL(S, 'lingtong') && !S.auto) { S.opts.autoCycle = false; toast('已暂停自动周天'); } renderFast(); });
+  $('btnBest').addEventListener('click', pickBest);
+  $('prev').addEventListener('click', () => moveTier(-1));
+  $('next').addEventListener('click', () => moveTier(1));
+  $('mTrib').addEventListener('click', () => $('btnTrib').click());
+  $('btnTrib').addEventListener('click', () => { if (X.startTrib(S)) { log('迎接' + X.TRIB_NAMES[S.trib.m], true); toast(`${esc(X.TRIB_NAMES[S.trib.m])}降临！`, true); pillKey = ''; renderFast(); } });
+  $('qiyu').addEventListener('click', () => { const r = X.claimEvent(S); if (r) { toast(`奇遇 · <b>${esc(r.name)}</b>　${esc(r.msg)}`, true); log('奇遇「' + r.name + '」' + r.msg, true); FX.burst('--bronze2', 30); renderFast(); } });
+  document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('input,textarea') || $('modal').open) return;
+    const k = e.key.toLowerCase();
+    if (k === ' ') { e.preventDefault(); $('btnAuto').click(); }
+    else if (k === 'c') $('btnCult').click();
+    else if (k === 'q' || k === 'e') { const av = X.LINE_IDS.filter(l => X.curMajor(S) >= X.LINES[l].start); const i = av.indexOf(S.line); setLine(av[(i + (k === 'e' ? 1 : -1) + av.length) % av.length]); }
+    else if (k === 'a' || k === 'arrowleft') moveTier(-1);
+    else if (k === 'd' || k === 'arrowright') moveTier(1);
+    else if (k === 'b') pickBest();
+    else if (k === 't' && !$('btnTrib').hidden) $('btnTrib').click();
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) save(); else { pump(); } });
+  window.addEventListener('pagehide', save);
+  if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', () => setTimeout(readVars, 30));
+}
+
+/* ---------------- 启动 ---------------- */
+function boot() {
+  S = load();
+  let off = null;
+  if (S) { const away = (Date.now() - (S.last || Date.now())) / 1000; if (away > 60) off = X.offline(S, away); }
+  else { S = X.newState(); S.log = []; }
+  applyTheme(); readVars(); X.setSci(S.opts.sci);
+  bindInput(); FX.resize(); rebuildAll();
+  if (!S.log.length) log('踏入仙途。按住丹药开始炼化。', true);
+  if (off) showOffline(off);
+  let lastUi = 0, lastTab = 0, lastSave = performance.now();
+  function frame(now) {
+    pump(); flushFloats(now);
+    if (now - lastUi > 120) { lastUi = now; if (structDirty) { structDirty = false; buildLineTabs(); clampSel(); } renderFast(); }
+    if (now - lastTab > 300) { lastTab = now; updTab(); }
+    if (now - lastSave > 15000) { lastSave = now; save(); }
+    FX.frame(now);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  setInterval(() => { if (document.hidden) pump(); }, 1000);
+  window.__S = () => S;
+}
+boot();
+})();
+</script>
+</body>
+</html>
